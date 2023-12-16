@@ -4,6 +4,7 @@ const Login = require("../controllers/Login");
 const Logout = require("../controllers/Logout");
 const UserController = require("../controllers/UserController");
 const Verifytoken = require("../middlewares/verifyAuth");
+const {getUser} = require("../controllers/getUser");
 const route = express.Router();
 
 //Post Requests
@@ -13,4 +14,5 @@ route.post("/logout", Verifytoken, Logout);
 
 //Get Requests
 route.get("/getEverything", UserController.GetAllUserData);
+route.get("/getUserDetails",Verifytoken,getUser);
 module.exports = route;
