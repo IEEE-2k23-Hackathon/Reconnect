@@ -22,9 +22,10 @@ const TaskCard = ({ title, description, image, id }) => {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="140"
+
                     image={image}
                     alt="green iguana"
+                    style={{ backgroundSize: "cover", width: '100%', maxHeight:"110px" }}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

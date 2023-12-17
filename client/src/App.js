@@ -7,6 +7,7 @@ import Register from "./Pages/Register";
 import { LoggedState } from "./context/auth";
 import DailyTask from "./Pages/Tasks/DailyTask";
 import Test from "./Pages/Tasks/Test";
+import Blogs from "./Pages/Blogs/Blogs";
 
 function App() {
   const { isLoggedIn } = LoggedState();
@@ -35,6 +36,14 @@ function App() {
         element={
           <RequireAuth>
             <DailyTask/>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/success-stories"
+        element={
+          <RequireAuth>
+            <Blogs/>
           </RequireAuth>
         }
       />

@@ -12,9 +12,9 @@ const Home = () => {
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
 
   const LevelsCards = [
-    { title: 'Level1', description: 'Description for Level 1', image: '/path/to/image1.jpg', days: 5 },
-    { title: 'Level2', description: 'Description for Level 2', image: '/path/to/image2.jpg', days: 8 },
-    { title: 'Level3', description: 'Description for Level 3', image: '/path/to/image3.jpg', days: 12 },
+    { title: 'Level1', description: 'Description for Level 1', image: 'Lvl1.png', days: 5 },
+    { title: 'Level2', description: 'Description for Level 2', image: 'Lvl2.png', days: 8 },
+    { title: 'Level3', description: 'Description for Level 3', image: 'Lvl3.png', days: 12 },
     // Add more data as needed
   ];
 
