@@ -4,13 +4,19 @@ import { LoggedState } from '../context/auth';
 
 
 const Home = () => {
-  const currentUser = JSON.parse(localStorage.getItem('userinfo'));
-  console.log(currentUser);
+
+  const isLoggedIn = LoggedState();
+  console.log(isLoggedIn);
+  const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0 ;
+  console.log(currentUser.isCounselor);
+  
   return (
     <Layout title={"DashBoard | Reconnect"}>
         <div>
           Demo
-          {currentUser ? currentUser.username : "____Nousers"}
+          {currentUser ? "_____" + currentUser.username : "____Nousers"}
+          <br />
+          Counselor : {JSON.stringify(currentUser.isCounselor)}
         </div>
     </Layout>
   )

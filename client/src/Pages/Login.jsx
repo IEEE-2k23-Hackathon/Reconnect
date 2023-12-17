@@ -36,7 +36,7 @@ function Copyright(props) {
 const Login = () => {
 
   const navigate = useNavigate();
-  const {CurrentUser,setUser,setisLoggedIn} = LoggedState();
+  const {CurrentUser,setisLoggedIn,setUser} = LoggedState();
 
 
   const [username, setUsername] = useState("");
@@ -66,8 +66,12 @@ const Login = () => {
         toast.error("User Not Found");
         return ;
       }
+
       console.log(data.User);
+      setUser(data.User);
+      localStorage.setItem("user",JSON.stringify(data.User));
       setisLoggedIn(true);
+      
       setTimeout(() => {
         navigate("/");
       },500);

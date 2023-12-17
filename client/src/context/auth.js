@@ -14,13 +14,15 @@ const LoggedInProvider = ({ children }) => {
     });
 
     useEffect(() => {
+        console.log("Is Logged Called");
         localStorage.setItem('log', JSON.stringify(isLoggedIn));
-        localStorage.setItem("user",JSON.stringify(User));
     },[isLoggedIn]);
 
     const value = {
         isLoggedIn,
         setisLoggedIn,
+        User,
+        setUser
     };
 
     return (

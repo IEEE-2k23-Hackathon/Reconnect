@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../components/Layout/Layout'
+
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import {useNavigate } from "react-router-dom";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -35,23 +39,62 @@ const defaultTheme = createTheme();
 
 const Register = () => {
 
-    const handleSubmit = (event) => {
+    const [isCounselor, setIsCounselor] = useState(false);
+    const navigate = useNavigate();
+
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+
+        if (!data.get('email') || !data.get('password') || !data.get('username')) {
+            toast.error("Please Fill all the Feilds");
+            return;
+        }
+
+        const register_ojt = {
+            username: data.get('username'),
+            phonenumber: JSON.parse(data.get('phonenumber')),
             email: data.get('email'),
+            age: JSON.parse(data.get('age')),
+            addictType: data.get('addictType'),
+            gender: data.get('gender'),
+            isCounselor,
+            ...isCounselor && {
+              CounselorLicenseNumber: JSON.parse(data.get('counselorLicenseNumber')),
+              Specialization: data.get('specialization'),
+              Experience: JSON.parse(data.get('experience')),
+              WorkingIn: data.get('workingIn'),
+              Portfolio: data.get('portfolio'),
+            },
             password: data.get('password'),
-        });
+          };
+
+          console.log(register_ojt);
+          
+
+        try {
+            const { data } = await axios.post("/api/register",register_ojt);
+            console.log(data);
+            if(data){
+                toast.success("Registered SuccessFully ..!")
+            }
+            setTimeout(() => {
+                navigate("/login");
+            }, 500);
+        } catch (error) {
+            toast.error("Registered Failed ...😂");
+        }
+          
     };
 
     return (
         <Layout title={"Register Page"}>
             <ThemeProvider theme={defaultTheme}>
-                <Container component="main" maxWidth="xs">
+                <Container component="main" maxWidth="xs" >
                     <CssBaseline />
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 4,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -68,12 +111,109 @@ const Register = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                id="username"
+                                label="User Name"
+                                name="username"
                                 autoFocus
                             />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="phonenumber"
+                                label="Phone Number"
+                                name="phonenumber"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                type='email'
+                                label="Email"
+                                name="email"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+
+                                fullWidth
+                                id="age"
+
+                                label="Age"
+                                name="age"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+
+                                fullWidth
+                                id="addictType"
+
+                                label="AddictType"
+                                name="addictType"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                id="gender"
+
+                                label="Gender"
+                                name="gender"
+                                autoFocus
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={isCounselor} onChange={(e) => setIsCounselor(e.target.checked)} />}
+                                label="I am a Counselor"
+                            />
+                            {isCounselor && (
+                                <>
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="counselorLicenseNumber"
+                                        label="Counselor License Number"
+                                        name="counselorLicenseNumber"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="specialization"
+                                        label="Specialization"
+                                        name="specialization"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="experience"
+                                        label="Experience (Years)"
+                                        name="experience"
+                                        type="number"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="workingIn"
+                                        label="Working in (Hospital, Clinic etc.)"
+                                        name="workingIn"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="portfolio"
+                                        label="Portfolio Link"
+                                        name="portfolio"
+                                        autoFocus
+                                    />
+                                </>
+                            )}
+
                             <TextField
                                 margin="normal"
                                 required
@@ -93,7 +233,7 @@ const Register = () => {
                             >
                                 Register
                             </Button>
-                            <Grid container>                            
+                            <Grid container>
                                 <Grid item>
                                     <Link href="/login" variant="body2">
                                         {"Already Have an account? Login"}

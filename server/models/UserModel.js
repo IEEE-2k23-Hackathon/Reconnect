@@ -36,7 +36,6 @@ const UserSchema = mongoose.Schema({
     counselorDetails:{
         CounselorLicenseNumber:{
             type:Number,
-            unique:true
         },
         Specialization:{
             type:String,
