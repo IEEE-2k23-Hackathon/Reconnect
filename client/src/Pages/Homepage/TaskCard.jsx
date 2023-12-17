@@ -1,13 +1,21 @@
 // LizardCard.js
 import React from 'react';
 import { Card, CardActionArea, CardMedia, CardContent, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { LoggedState } from '../../context/auth';
 
 const TaskCard = ({ title, description, image, id }) => {
-    const generateDynamicRoute = () => {
-        // Replace this with your dynamic route generation logic
-        return `/Task/${title}`;
-    };
+
+    const {isLoggedIn} = LoggedState();
+    const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
+    console.log(currentUser?.addictType);
+
+    const navigate = useNavigate();
+
+    const handleClick = ()=>{
+        console.log(title);
+        navigate(`/Tasks/${title}/${currentUser.addictType}`);
+    }
 
     return (
         <Card sx={{ maxWidth: 345 }}>
@@ -27,7 +35,7 @@ const TaskCard = ({ title, description, image, id }) => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <Button fullWidth sx={{ backgroundColor: '#7E30E1', color: 'white', '&:hover': { color: 'black' , backgroundColor:'lightpink' } }} component={Link} to={generateDynamicRoute()}>
+            <Button fullWidth sx={{ backgroundColor: '#7E30E1', color: 'white', '&:hover': { color: 'black' , backgroundColor:'lightpink' } }} onClick={handleClick}>
                 View Tasks
             </Button>
         </Card>

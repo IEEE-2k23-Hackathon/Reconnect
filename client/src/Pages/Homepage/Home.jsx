@@ -2,7 +2,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { LoggedState } from '../../context/auth';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import TaskCard from './TaskCard';
 import Sidebar from '../../components/Sidebar';
 import StreakProgress from './StreakProgress';
@@ -12,9 +12,9 @@ const Home = () => {
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
 
   const LevelsCards = [
-    { title: 'Level_1', description: 'Description for Level 1', image: '/path/to/image1.jpg', days: 5 },
-    { title: 'Level_2', description: 'Description for Level 2', image: '/path/to/image2.jpg', days: 8 },
-    { title: 'Level_3', description: 'Description for Level 3', image: '/path/to/image3.jpg', days: 12 },
+    { title: 'Level1', description: 'Description for Level 1', image: '/path/to/image1.jpg', days: 5 },
+    { title: 'Level2', description: 'Description for Level 2', image: '/path/to/image2.jpg', days: 8 },
+    { title: 'Level3', description: 'Description for Level 3', image: '/path/to/image3.jpg', days: 12 },
     // Add more data as needed
   ];
 
@@ -24,6 +24,9 @@ const Home = () => {
 
   return (
     <Layout title={'DashBoard | Reconnect'}>
+      <Typography>
+        {currentUser ? currentUser.username : "Zero"}
+      </Typography>
       <Grid container spacing={1} sx={{ width:' 100%' , marginLeft:"-5vw" }}>
         {/* Sidebar */}
         <Grid item xs={12} md={3}>
