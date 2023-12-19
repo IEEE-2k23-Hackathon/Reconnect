@@ -33,6 +33,11 @@ const UserSchema = mongoose.Schema({
         default:false,
         required:true,
     },
+    TaskScore:{
+        type:Number,
+        default:0,
+        required:true
+    },
     counselorDetails:{
         CounselorLicenseNumber:{
             type:Number,
