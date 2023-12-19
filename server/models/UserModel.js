@@ -38,6 +38,23 @@ const UserSchema = mongoose.Schema({
         default:0,
         required:true
     },
+    DailyTaskDone:{
+       Level1:{
+        type:Number,
+        default:0,
+        required:true
+       },
+       Level2:{
+        type:Number,
+        default:0,
+        required:true
+       },
+       Level3:{
+        type:Number,
+        default:0,
+        required:true
+       }
+    },
     counselorDetails:{
         CounselorLicenseNumber:{
             type:Number,
