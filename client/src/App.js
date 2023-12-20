@@ -8,6 +8,7 @@ import { LoggedState } from "./context/auth";
 import DailyTask from "./Pages/Tasks/DailyTask";
 import Test from "./Pages/Tasks/Test";
 import Blogs from "./Pages/Blogs/Blogs";
+import ChatPage from "./Pages/ChatRoom/ChatPage";
 
 function App() {
   const { isLoggedIn } = LoggedState();
@@ -31,11 +32,12 @@ function App() {
       />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
+      <Route exact path="/community-chat" element={<ChatPage />} />
       <Route
         path="/Tasks/:level/:addictType"
         element={
           <RequireAuth>
-            <DailyTask/>
+            <DailyTask />
           </RequireAuth>
         }
       />
@@ -43,7 +45,7 @@ function App() {
         path="/success-stories"
         element={
           <RequireAuth>
-            <Blogs/>
+            <Blogs />
           </RequireAuth>
         }
       />
