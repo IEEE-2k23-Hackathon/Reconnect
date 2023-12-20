@@ -35,7 +35,7 @@ const TaskCard = ({ title, description, image, locked }) => {
             }}
             onClick={locked ? handleLockedCardClick : handleClick}
         >
-            {locked && (
+            { locked === 1 ? (
                 <div
                     style={{
                         position: 'absolute',
@@ -49,7 +49,7 @@ const TaskCard = ({ title, description, image, locked }) => {
                 >
                     🔒
                 </div>
-            )}
+            ):null}
             <CardActionArea>
                 <CardMedia
                     component="img"

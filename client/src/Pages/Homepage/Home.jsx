@@ -45,9 +45,6 @@ const Home = () => {
 
   return (
     <Layout title={'DashBoard | Reconnect'}>
-      <Typography>
-        {currentUser ? currentUser.username : "Zero"}
-      </Typography>
       <Grid container spacing={1} sx={{ width: '100%', marginLeft: "-5vw" }}>
         {/* Sidebar */}
         <Grid item xs={12} md={3}>
