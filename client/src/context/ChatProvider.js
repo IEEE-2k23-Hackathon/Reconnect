@@ -1,39 +1,43 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [selectedChat, setSelectedChat] = useState(null);
-  const [chats, setChats] = useState([]);
+  const [selectedChat, setSelectedChat] = useState();
+  const [user, setUser] = useState();
+  const [notification, setNotification] = useState([]);
+  const [chats, setChats] = useState();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const checkIsLoggedIn = () => {
-      const isLoggedIn = true;
-      return isLoggedIn;
-    };
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
 
-    const isLoggedIn = checkIsLoggedIn();
+    // if (!userInfo) history.push("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
-    if (isLoggedIn) {
-      const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-      setCurrentUser(storedUserInfo);
-    }
-  }, []);
-
-  const value = {
-    currentUser,
-    setCurrentUser,
-    selectedChat,
-    setSelectedChat,
-    chats,
-    setChats,
-  };
-
-  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
+  return (
+    <ChatContext.Provider
+      value={{
+        selectedChat,
+        setSelectedChat,
+        user,
+        setUser,
+        notification,
+        setNotification,
+        chats,
+        setChats,
+      }}
+    >
+      {children}
+    </ChatContext.Provider>
+  );
 };
 
-export const useChatState = () => {
+export const ChatState = () => {
   return useContext(ChatContext);
 };
 
