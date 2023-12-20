@@ -6,7 +6,6 @@ import { LoggedState } from '../../context/auth';
 import toast from 'react-hot-toast';
 
 const TaskCard = ({ title, description, image, locked }) => {
-    console.log(locked);
     const { isLoggedIn } = LoggedState();
     const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
     const taskScore = currentUser?.TaskScore || 0;
@@ -15,20 +14,52 @@ const TaskCard = ({ title, description, image, locked }) => {
 
 
     const handleClick = () => {
-        if (taskScore >= 0) {
-            // Perform any additional actions before navigating if needed
-            navigate(`/Tasks/${title}/${currentUser.addictType}`);
-        }
+        // Navigate to Level and type of Addict Route
+        navigate(`/Tasks/${title}/${currentUser.addictType}`);
+    };
+
+    const handleLockedCardClick = () => {
+        toast.dismiss();
+        toast.error('This level is locked. Complete the previous level first.');
     };
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card
+            sx={{
+                maxWidth: 345,
+                opacity: locked ? 0.4 : 1,
+                position: 'relative',
+                '&:hover': {
+                    cursor: locked ? 'not-allowed' : 'pointer'
+                }
+            }}
+            onClick={locked ? handleLockedCardClick : handleClick}
+        >
+            {locked && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        color: 'white',
+                        fontSize: '4rem',
+                        zIndex: 2,
+                    }}
+                >
+                    🔒
+                </div>
+            )}
             <CardActionArea>
                 <CardMedia
                     component="img"
                     image={image}
                     alt="green iguana"
-                    style={{ backgroundSize: "cover", width: '100%', maxHeight: "110px" }}
+                    style={{
+                        backgroundSize: 'cover', width: '100%', maxHeight: '110px', '&:hover': {
+                            cursor: locked ? 'not-allowed' : 'pointer'
+                        }
+                    }}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -46,11 +77,11 @@ const TaskCard = ({ title, description, image, locked }) => {
                     color: locked ? 'white' : 'black',
                     '&:hover': {
                         backgroundColor: locked ? '#D80032' : 'lightpink',
-                        cursor: locked ? 'not-allowed' : 'pointer'
+                        cursor: locked ? 'not-allowed' : 'pointer',
                     },
                 }}
                 onClick={handleClick}
-                disabled={locked} // Disable the button if locked is less than 0
+                disabled={locked}
             >
                 View Tasks
             </Button>

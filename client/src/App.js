@@ -6,7 +6,6 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { LoggedState } from "./context/auth";
 import DailyTask from "./Pages/Tasks/DailyTask";
-import Test from "./Pages/Tasks/Test";
 import Blogs from "./Pages/Blogs/Blogs";
 import ChatPage from "./Pages/ChatRoom/ChatPage";
 

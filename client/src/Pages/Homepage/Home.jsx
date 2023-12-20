@@ -19,7 +19,7 @@ const Home = () => {
   ];
 
   const calculateUnlockedLevels = () => {
-    const taskScore = currentUser?.TaskScore || 0;
+    const taskScore = 6;
     let unlockedLevels = [];
 
     if (taskScore >= 0) {
