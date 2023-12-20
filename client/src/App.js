@@ -8,8 +8,6 @@ import { LoggedState } from "./context/auth";
 import DailyTask from "./Pages/Tasks/DailyTask";
 import Blogs from "./Pages/Blogs/Blogs";
 import ChatPage from "./Pages/ChatRoom/ChatPage";
-import ScheduleLiveStream from "./Pages/Tasks/Webinars";
-import Rooms from "./Pages/Tasks/Rooms";
 
 function App() {
   const { isLoggedIn } = LoggedState();
@@ -34,8 +32,6 @@ function App() {
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/community-chat" element={<ChatPage />} />
-      <Route exact path="/webinars" element={<ScheduleLiveStream/>} />
-      <Route exact path="/webinars/:roomID" element={<Rooms/>} />
       <Route
         path="/Tasks/:level/:addictType"
         element={
