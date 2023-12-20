@@ -5,15 +5,16 @@ const cookieParser = require("cookie-parser");
 
 const connectDB = require("./db/connectDB");
 const Routes = require("./routes/routes");
+const ChatRoutes = require("./routes/ChatRoutes");
 
 const PORT = process.env.PORT || 5000;
-
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use("/api", Routes);
+app.use('/chatroom', ChatRoutes);
 
 
 const start = async () => {
@@ -23,14 +24,15 @@ const start = async () => {
     console.log(err);
   }
 };
+
 start();
 
 const server = app.listen(PORT, () => {
   console.log(`Server on ${PORT}`);
 });
 
-// socket io
 
+// socket io
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {

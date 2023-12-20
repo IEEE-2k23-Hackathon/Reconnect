@@ -33,7 +33,7 @@ const Sidebar = () => {
             <ListItemText primary="Webinars" />
           </ListItem>
 
-          <ListItem button component={Link} to="/community-chat">
+          <ListItem button component={Link} to="/communitychat">
             <ListItemIcon>
               <ChatIcon />
             </ListItemIcon>

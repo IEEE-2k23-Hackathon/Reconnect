@@ -9,6 +9,7 @@ import DailyTask from "./Pages/Tasks/DailyTask";
 import Blogs from "./Pages/Blogs/Blogs";
 import Rooms from "./Pages/Tasks/Rooms"
 import HostWebinar from "./Pages/Tasks/Webinars";
+import ChatsPage from './Pages/ChatRoom/ChatsPage'
 
 function App() {
   const { isLoggedIn } = LoggedState();
@@ -34,6 +35,8 @@ function App() {
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/webinars/:roomID" element={<Rooms/>} />
       <Route exact path="/webinars" element={<HostWebinar/>} />
+      <Route exact path="/communitychat" element={<ChatsPage/>} />
+      
 
       <Route
         path="/Tasks/:level/:addictType"
