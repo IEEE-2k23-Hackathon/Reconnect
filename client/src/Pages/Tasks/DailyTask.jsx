@@ -59,12 +59,20 @@ const DailyTask = () => {
   };
 
   const showStartDayNotification = () => {
-    alert(`Ready to start Day ${selectedDay}? Click OK to begin!`);
-    setTimeout(() => {
-      toast.success(`Day ${selectedDay} has started! Get ready for your tasks.`);
-      startDayTimer();
-    }, 1000);
+    const isReady = window.confirm(`Ready to start Day ${selectedDay}? Click OK to begin or Cancel if you're not ready.`);
+  
+    if (isReady) {
+      setTimeout(() => {
+        toast.success(`Day ${selectedDay} has started! Get ready for your tasks.`);
+        startDayTimer();
+      }, 1000);
+    } else {
+      toast.loading('Day not started. Get ready and click Start Your Day when you are prepared.',{
+        duration:2000
+      });
+    }
   };
+  
 
   const startDayTimer = () => {
     const endTime = Date.now() + 12 * 60 * 60 * 1000;
@@ -139,11 +147,19 @@ const DailyTask = () => {
         .catch((error) => {
           console.error('Error updating TaskScore:', error.message);
           toast.error('Error updating TaskScore. Please try again.');
+        })
+        .finally(() => {
+          // Uncheck all checkboxes
+          setCheckedTasks(Array(checkedTasks.length).fill(false));
+  
+          // Update unchecked state in local storage
+          localStorage.setItem('checkedTasks', JSON.stringify(Array(checkedTasks.length).fill(false)));
         });
     } else {
       toast.error('Please complete all tasks before completing the day.');
     }
   };
+  
   
 
   const unlockedDays = Math.min(Math.floor((currentUser?.DailyTaskDone?.[level] || 0) / 3) + 1, selectedDay);

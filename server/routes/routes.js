@@ -9,6 +9,7 @@ const getTasks = require("../controllers/getTasks");
 const {addBlog,getBlogs} = require("../controllers/uploadBlog");
 const  userController = require("../controllers/updateTaskScore");
 const updateDailyTaskDone = require("../controllers/updateLevelScore");
+const getUsersByAddictType = require("../controllers/getUsers");
 const route = express.Router();
 
 //Post Requests
@@ -24,4 +25,5 @@ route.post('/users/updateDailyTaskDone/:userId', updateDailyTaskDone);
 route.get("/getUserDetails",Verifytoken,getUser);
 route.get("/addictTasks",getTasks);
 route.get("/getBlogs",getBlogs)
+route.get('/users/:addictType',getUsersByAddictType)
 module.exports = route;

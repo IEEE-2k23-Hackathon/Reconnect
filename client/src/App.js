@@ -10,6 +10,7 @@ import Blogs from "./Pages/Blogs/Blogs";
 import Rooms from "./Pages/Tasks/Rooms"
 import HostWebinar from "./Pages/Tasks/Webinars";
 import ChatsPage from './Pages/ChatRoom/ChatsPage'
+import LeaderBoard from "./Pages/Rewards/LeaderBoard";
 
 function App() {
   const { isLoggedIn } = LoggedState();
@@ -36,7 +37,7 @@ function App() {
       <Route exact path="/webinars/:roomID" element={<Rooms/>} />
       <Route exact path="/webinars" element={<HostWebinar/>} />
       <Route exact path="/communitychat" element={<ChatsPage/>} />
-      
+      <Route exact path="/rewards" element={<LeaderBoard/>} />
 
       <Route
         path="/Tasks/:level/:addictType"
