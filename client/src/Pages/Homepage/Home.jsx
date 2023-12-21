@@ -11,6 +11,8 @@ const Home = () => {
   const isLoggedIn = LoggedState();
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
 
+  console.log(currentUser.TaskScore);
+
   const LevelsCards = [
     { title: 'Level1', description: 'Description for Level 1', image: 'Lvl1.png' },
     { title: 'Level2', description: 'Description for Level 2', image: 'Lvl2.png' },
@@ -19,7 +21,7 @@ const Home = () => {
   ];
 
   const calculateUnlockedLevels = () => {
-    const taskScore = 6;
+    const taskScore = currentUser.TaskScore || 0;
     let unlockedLevels = [];
 
     if (taskScore >= 0) {
