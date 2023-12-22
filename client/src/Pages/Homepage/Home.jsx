@@ -41,9 +41,6 @@ const Home = () => {
 
   const unlockedLevels = calculateUnlockedLevels();
 
-  const streakDays = 51; // Replace with actual streak information
-  const daysSkipped = 10; // Replace with actual days skipped information
-  const remainingDays = 0; // Replace with actual remaining days information
 
   return (
     <Layout title={'DashBoard | Reconnect'}>
@@ -57,18 +54,18 @@ const Home = () => {
         <Grid item xs={12} md={9}>
           <Grid container spacing={5} justifyContent="center">
             <Grid item xs={12}>
-              <StreakProgress streakDays={streakDays} daysSkipped={daysSkipped} remainingDays={remainingDays} />
+              <StreakProgress currentUser={currentUser} />
             </Grid>
             {LevelsCards.map((item, index) => (
               (
                 unlockedLevels.includes(index + 1) ?
-                <Grid item xs={12} sm={4} key={index}>
-                  <TaskCard {...item} locked={0} />
-                </Grid>
-               : 
-               <Grid item xs={12} sm={4} key={index}>
-                  <TaskCard {...item} locked={1} />
-                </Grid>
+                  <Grid item xs={12} sm={4} key={index}>
+                    <TaskCard {...item} locked={0} />
+                  </Grid>
+                  :
+                  <Grid item xs={12} sm={4} key={index}>
+                    <TaskCard {...item} locked={1} />
+                  </Grid>
               )
             ))}
           </Grid>
