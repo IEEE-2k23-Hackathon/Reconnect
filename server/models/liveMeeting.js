@@ -15,6 +15,10 @@ const liveMeeting = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  liveUrl: {
+    type: String,
+    required: true,
+  },
   time: {
     type: Number,
   },

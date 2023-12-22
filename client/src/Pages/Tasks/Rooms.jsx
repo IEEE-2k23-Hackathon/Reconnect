@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
+import * as React from "react";
+import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 function randomID(len) {
-  let result = '';
+  let result = "";
   if (result) return result;
-  var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',
+  var chars = "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
     maxPos = chars.length,
     i;
   len = len || 5;
@@ -15,12 +15,12 @@ function randomID(len) {
 }
 
 export function getUrlParams(url = window.location.href) {
-  let urlStr = url.split('?')[1];
+  let urlStr = url.split("?")[1];
   return new URLSearchParams(urlStr);
 }
 
 export default function App() {
-  const roomID = getUrlParams().get('roomID') || randomID(5);
+  const roomID = getUrlParams().get("roomID") || randomID(5);
   const elementRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -46,13 +46,13 @@ export default function App() {
           container: elementRef.current,
           sharedLinks: [
             {
-              name: 'Personal link',
+              name: "Personal link",
               url:
                 window.location.protocol +
-                '//' +
+                "//" +
                 window.location.host +
                 window.location.pathname +
-                '?roomID=' +
+                "?roomID=" +
                 roomID,
             },
           ],
@@ -71,7 +71,7 @@ export default function App() {
     <div
       className="myCallContainer"
       ref={elementRef}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: "100vw", height: "100vh" }}
     ></div>
   );
 }

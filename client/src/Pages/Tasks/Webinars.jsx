@@ -4,16 +4,6 @@ import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar";
 import { LoggedState } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
-import {
-  Paper,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 
 const HostWebinar = () => {
   const isLoggedIn = LoggedState();
@@ -22,32 +12,41 @@ const HostWebinar = () => {
     : null;
   const isCounselor = currentUser.isCounselor;
   const Navigate = useNavigate();
+  const [roomName, setRoomName] = useState([]);
+  const [liveMeetingsData, setLiveMeetingData] = useState([]);
   const handleCreateLiveStream = () => {
     // Perform actions to create the live stream
-    Navigate("/webinars/abcd");
+    Navigate("/webinars/" + roomName);
     console.log("Creating live stream");
+    setLiveMeetingData(
+      window.location.protocol +
+        "//" +
+        window.location.host +
+        window.location.pathname +
+        "?roomID=" +
+        roomName
+    );
+    // console.log(liveMeetingsData);
   };
 
-  const [liveMeetingsData, setliveMeetingsData] = useState([]);
-
-  const scheduleMeeting = () => {
-    useEffect(() => {
-      // Fetch users based on the current user's addictType
-      const fetchLiveMeetings = async () => {
-        try {
-          const response = await fetch(`/api/`);
-          const data = await response.json();
-          setLeaderboardData(data.users);
-        } catch (error) {
-          console.error("Error fetching users:", error.message);
-        }
-      };
-
-      if (currentUser) {
-        fetchLiveMeetings();
+  useEffect(() => {
+    // Fetch users based on the current user's addictType
+    const fetchLiveMeetings = async () => {
+      try {
+        const response = await fetch(`/api/getLiveMeetings`);
+        const data = await response.json();
+        // console.log(data);
+        // setLiveMeetingData(data.users);
+      } catch (error) {
+        console.error("Error fetching users:", error.message);
       }
-    }, []);
+    };
 
+    if (currentUser) {
+      fetchLiveMeetings();
+    }
+  }, []);
+  const scheduleMeeting = () => {
     console.log("scheduled a meeting");
   };
 
@@ -60,18 +59,29 @@ const HostWebinar = () => {
         </Grid>
 
         {/* Main Content */}
-        <Grid item xs={12} md={9}>
-          {isCounselor && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCreateLiveStream}
-              style={{ margin: "5px" }}
-            >
-              Host Meeting
-            </Button>
-          )}
-          {isCounselor && (
+        <Grid>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="roomName"
+            label="roomName"
+            type="roomName"
+            id="roomName"
+            onChange={(e) => setRoomName(e.target.value)}
+          />
+          <Grid item xs={12} md={9}>
+            {isCounselor && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCreateLiveStream}
+                style={{ margin: "5px" }}
+              >
+                Host Meeting
+              </Button>
+            )}
+            {/* {isCounselor && (
             <Button
               variant="contained"
               color="primary"
@@ -80,7 +90,8 @@ const HostWebinar = () => {
             >
               Schedule Meeting
             </Button>
-          )}
+          )} */}
+          </Grid>
         </Grid>
       </Grid>
     </Layout>
