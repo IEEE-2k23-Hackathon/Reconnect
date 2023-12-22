@@ -18,15 +18,6 @@ const HostWebinar = () => {
     // Perform actions to create the live stream
     Navigate("/webinars/" + roomName);
     console.log("Creating live stream");
-    setLiveMeetingData(
-      window.location.protocol +
-        "//" +
-        window.location.host +
-        window.location.pathname +
-        "?roomID=" +
-        roomName
-    );
-    // console.log(liveMeetingsData);
   };
 
   useEffect(() => {
