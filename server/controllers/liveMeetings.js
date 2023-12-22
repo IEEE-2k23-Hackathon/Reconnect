@@ -1,16 +1,17 @@
-const Schedule = require("../models/ScheduleMeeting");
+const live = require("../models/liveMeeting");
 
-const scheduleMeetings = async (req, res) => {
-  const { roomName, time, roomID } = req.body;
+const addLiveMeetings = async (req, res) => {
+  const { roomName, roomID, isLive, time } = req.body;
   const meeting = {
     roomName,
-    time,
     roomID,
+    time,
+    isLive,
   };
   try {
-    const newMeeting = await Schedule.create(meeting);
+    const newMeeting = await live.create(meeting);
     return res.status(201).json({
-      message: "New meeting scheduled successfully",
+      message: "New meeting is live",
       meeting: newMeeting,
     });
   } catch (error) {
@@ -20,11 +21,10 @@ const scheduleMeetings = async (req, res) => {
   }
 };
 
-const getScheduledMeetings = async (req, res) => {
-  const { roomName, time, roomID } = req.params;
-
+const getLiveMeetings = async (req, res) => {
+  const { roomName } = req.params;
   try {
-    let existingMeeting = await Schedule.findOne({ roomName });
+    let existingMeeting = await live.findOne({ roomName });
     if (!existingMeeting) {
       return res.status(201).json({
         message: `no meetings are scheduled`,
@@ -43,4 +43,4 @@ const getScheduledMeetings = async (req, res) => {
   }
 };
 
-module.exports = { getScheduledMeetings, scheduleMeetings };
+module.exports = { addLiveMeetings, getLiveMeetings };
