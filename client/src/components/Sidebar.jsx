@@ -1,6 +1,6 @@
 // Sidebar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Button } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import EventIcon from '@mui/icons-material/Event';
@@ -11,7 +11,9 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const handleLogout = () => {
+    navigate('/login');
     // Implement your logout logic here
   };
 
@@ -54,12 +56,12 @@ const Sidebar = () => {
             <ListItemText primary="Rewards" />
           </ListItem>
 
-          <ListItem button component={Link} to="/tracker">
+          {/* <ListItem button component={Link} to="/tracker">
             <ListItemIcon>
               <TimelineIcon />
             </ListItemIcon>
             <ListItemText primary="Tracker" />
-          </ListItem>
+          </ListItem> */}
         </div>
 
         {/* Logout Button */}

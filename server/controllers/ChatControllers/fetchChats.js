@@ -5,7 +5,7 @@ const User = require('../../models/UserModel');
 const fetchChats = async(req,res)=>{
 
     const CurrentUser = req.id;
-    //console.log(CurrentUser);
+    console.log(CurrentUser);
     try {
     let result = await Chat.find({users:{$elemMatch : { $eq:CurrentUser}}})
         .populate('users','-password')

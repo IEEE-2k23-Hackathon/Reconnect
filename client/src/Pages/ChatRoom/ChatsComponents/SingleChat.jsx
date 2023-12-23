@@ -14,7 +14,7 @@ const SingleChat = () => {
   const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
 
   const selectedChat = {
-    _id: '65833c2af93d26a35b49bce8',
+    _id: '65869e2c6ebed2e4b1dc4082',
   };
 
   const [SocketConnected, setSocketConnected] = useState(false);
@@ -43,6 +43,7 @@ const SingleChat = () => {
     socket = io(ENDPOINT);
     socket.emit('setup', CurrentUser);
     socket.on('connected', () => setSocketConnected(true));
+
 
     return () => {
       socket.disconnect();
@@ -92,7 +93,8 @@ const SingleChat = () => {
   };
 
   return (
-    <>
+    <Box height={'110%'} width={'90%'}>
+    
       {selectedChat ? (
         <>
           <Typography
@@ -106,7 +108,7 @@ const SingleChat = () => {
           >
             {!selectedChat.GroupChat ? (
               <Box display="flex" justifyContent="space-between">
-                SomeOne
+                {CurrentUser.addictType} Community
               </Box>
             ) : (
               <Box display="flex" justifyContent="space-between">
@@ -116,31 +118,32 @@ const SingleChat = () => {
           </Typography>
 
           <Box
+            id="chatContainer" // Add an ID to the chat container
             display="flex"
             flexDirection="column"
             justifyContent="flex-end"
-            p={3}
+            p={2} // Adjusted padding
             bgcolor="#E8E8E8"
             width="100%"
-            height="100%"
+            height="auto"
             borderRadius="lg"
-            overflowY="hidden"
           >
             {loading ? (
               <CircularProgress size={20} thickness={4} />
             ) : (
-              <div className="messages">
+              <div className="messages" style={{ overflowY: 'auto', padding: '10px' }}>
                 <ScrollChat messages={messages} />
               </div>
             )}
 
-            <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+            <FormControl onKeyDown={sendMessage} isRequired mt={2}> {/* Adjusted margin top */}
               <Input
                 variant="filled"
                 bg="#E0E0E0"
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
+                sx={{border:"1px solid black",padding:"2vh"}}
               />
             </FormControl>
           </Box>
@@ -152,7 +155,7 @@ const SingleChat = () => {
           </Typography>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

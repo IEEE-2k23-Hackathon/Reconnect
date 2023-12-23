@@ -1,8 +1,12 @@
-import React from 'react';
-import ScrollableFeed from 'react-scrollable-feed';
+import React, { useRef, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../../../config/ChatLogic';
+import {
+  isLastMessage,
+  isSameSender,
+  isSameSenderMargin,
+  isSameUser,
+} from '../../../config/ChatLogic';
 import { LoggedState } from '../../../context/auth';
 
 const ScrollChat = ({ messages }) => {
@@ -10,8 +14,18 @@ const ScrollChat = ({ messages }) => {
   const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
   const user = CurrentUser;
 
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when messages change
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [messages]);
+
   return (
-    <ScrollableFeed>
+    <div
+      ref={chatContainerRef}
+      style={{ maxHeight: '60vh', overflowY: 'auto' }}
+    >
       {messages &&
         messages.map((m, i) => (
           <div style={{ display: 'flex' }} key={m._id}>
@@ -41,7 +55,7 @@ const ScrollChat = ({ messages }) => {
             </span>
           </div>
         ))}
-    </ScrollableFeed>
+    </div>
   );
 };
 
