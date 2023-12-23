@@ -1,12 +1,10 @@
 const live = require("../models/liveMeeting");
 
 const addLiveMeetings = async (req, res) => {
-  const { roomName, roomID, isLive, time, liveUrl } = req.body;
+  const { roomName, time, liveUrl } = req.body;
   const meeting = {
     roomName,
-    roomID,
     time,
-    isLive,
     liveUrl,
   };
   try {

@@ -1,11 +1,11 @@
 const Schedule = require("../models/ScheduleMeeting");
 
 const scheduleMeetings = async (req, res) => {
-  const { roomName, time, roomID } = req.body;
+  const { roomName, time, date } = req.body;
   const meeting = {
     roomName,
     time,
-    roomID,
+    date,
   };
   try {
     const newMeeting = await Schedule.create(meeting);
@@ -21,7 +21,7 @@ const scheduleMeetings = async (req, res) => {
 };
 
 const getScheduledMeetings = async (req, res) => {
-  const { roomName, time, roomID } = req.params;
+  const { roomName } = req.query;
 
   try {
     let existingMeeting = await Schedule.findOne({ roomName });

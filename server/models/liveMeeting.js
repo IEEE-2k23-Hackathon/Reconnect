@@ -5,22 +5,11 @@ const liveMeeting = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  roomID: {
+  time: {
     type: String,
-    required: true,
-  },
-
-  isLive: {
-    type: Boolean,
-    required: true,
   },
   liveUrl: {
     type: String,
-    required: true,
-  },
-  time: {
-    type: Number,
   },
 });
 

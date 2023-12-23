@@ -20,7 +20,8 @@ export function getUrlParams(url = window.location.href) {
 }
 
 export default function App() {
-  const roomID = getUrlParams().get("roomID") || randomID(5);
+  // const roomID = getUrlParams().get("roomID") || randomID(5);
+  const roomID = "abcde";
   const elementRef = React.useRef(null);
 
   React.useEffect(() => {

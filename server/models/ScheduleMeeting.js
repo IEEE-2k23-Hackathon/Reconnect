@@ -9,8 +9,8 @@ const ScheduleMeeting = new mongoose.Schema({
     type: String,
     required: true,
   },
-  roomID: {
-    type: String,
+  date: {
+    type: Date,
     required: true,
   },
 });
