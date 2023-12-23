@@ -1,11 +1,12 @@
 const live = require("../models/liveMeeting");
 
 const addLiveMeetings = async (req, res) => {
-  const { roomName, time, liveUrl } = req.body;
+  const { roomName, time, liveUrl ,addictType } = req.body;
   const meeting = {
     roomName,
     time,
     liveUrl,
+    addictType
   };
   try {
     const newMeeting = await live.create(meeting);
@@ -21,9 +22,8 @@ const addLiveMeetings = async (req, res) => {
 };
 
 const getLiveMeetings = async (req, res) => {
-  const { roomName } = req.params;
   try {
-    let existingMeeting = await live.findOne({ roomName });
+    let existingMeeting = await live.find({});
     if (!existingMeeting) {
       return res.status(201).json({
         message: `no meetings are scheduled`,

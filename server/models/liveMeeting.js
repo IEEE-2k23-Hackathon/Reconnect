@@ -11,6 +11,9 @@ const liveMeeting = new mongoose.Schema({
   liveUrl: {
     type: String,
   },
-});
+  addictType:{
+    type:String,
+  },
+},{timestamps:true});
 
 module.exports = new mongoose.model("live", liveMeeting);

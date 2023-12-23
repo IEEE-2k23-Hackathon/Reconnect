@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Grid } from "@mui/material";
+import { TextField, Button, Grid, Typography } from "@mui/material";
 import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar";
 import { LoggedState } from "../../context/auth";
@@ -59,16 +59,20 @@ const HostWebinar = () => {
 
   // fetch live meetings
   useEffect(() => {
-    // Fetch users based on the current user's addictType
+    // Fetch live meetings based on the current user's addictType
     const fetchLiveMeetings = async () => {
       try {
         const response = await fetch(`/api/getLiveMeetings`);
         const data = await response.json();
-        // console.log(data);
-        setLiveMeetingData(data);
-        console.log(data);
+
+        // Sort live meetings based on created time (assuming 'time' is the creation time)
+        const sortedLiveMeetings = data.existingMeeting.sort((a, b) => {
+          return new Date(b.time) - new Date(a.time);
+        });
+
+        setLiveMeetingData(sortedLiveMeetings);
       } catch (error) {
-        console.error("Error fetching users:", error.message);
+        console.error("Error fetching live meetings:", error.message);
       }
     };
 
@@ -76,6 +80,7 @@ const HostWebinar = () => {
       fetchLiveMeetings();
     }
   }, []);
+
 
   // schedule meetings
   const scheduleMeeting = async () => {
@@ -108,10 +113,10 @@ const HostWebinar = () => {
   const [scheduledMeetings, setScheduledMeetings] = useState([]);
 
   // getScheduledMeetings function
-  const getScheduledMeetings = async (roomName) => {
+  const getScheduledMeetings = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/getScheduledMeetings?roomName=${roomName}`
+        `http://localhost:5000/api/getScheduledMeetings`
       );
       const data = await response.json();
       console.log("====================================");
@@ -139,8 +144,15 @@ const HostWebinar = () => {
         </Grid>
 
         {/* Main Content */}
-        <Grid>
+
+
+        <Grid item xs={12} md={9}>
+
           {isCounselor && (
+            <>
+          <Typography variant="h6" gutterBottom>
+            Host Webinar
+          </Typography>
             <TextField
               margin="normal"
               required
@@ -151,6 +163,7 @@ const HostWebinar = () => {
               id="roomName"
               onChange={(e) => setRoomName(e.target.value)}
             />
+            </>
           )}
           <Grid item xs={12} md={9}>
             {isCounselor && (
@@ -158,7 +171,7 @@ const HostWebinar = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleCreateLiveStream}
-                style={{ margin: "5px" }}
+                style={{ margin: "5px", marginBottom: "2vh" }}
               >
                 Host Meeting
               </Button>
@@ -166,6 +179,10 @@ const HostWebinar = () => {
 
             {/* scheduleMeetings */}
             {isCounselor && (
+               <>
+               <Typography variant="h6" gutterBottom>
+                 Host Webinar
+               </Typography>
               <TextField
                 margin="normal"
                 required
@@ -176,6 +193,7 @@ const HostWebinar = () => {
                 id="roomName"
                 onChange={(e) => setRoomName(e.target.value)}
               />
+              </>
             )}
             {isCounselor && (
               <TextField
@@ -209,30 +227,76 @@ const HostWebinar = () => {
                 variant="contained"
                 color="primary"
                 onClick={scheduleMeeting}
-                style={{ margin: "5px" }}
+                style={{ margin: "5px", marginBottom: "3vh" }}
               >
                 Schedule Meeting
               </Button>
             )}
+
+
+
+
             {scheduledMeetings.length > 0 && (
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Time</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {scheduledMeetings.map((data) => (
-                      <TableRow key={data._id}>
-                        <TableCell>{data.date}</TableCell>
-                        <TableCell>{data.time}</TableCell>
+              <>
+                <Typography variant="h5" gutterBottom>
+                  Scheduled Meetings
+                </Typography>
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Meeting Name</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell>Time</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                      {scheduledMeetings.map((data) => (
+                        <TableRow key={data._id}>
+                          <TableCell>{data.roomName}</TableCell>
+                          <TableCell>{data.date.substr(0, 10)}</TableCell>
+                          <TableCell>{data.time}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </>
+            )}
+
+            {/* Live Meetings Table */}
+            {liveMeetingsData.length > 0 && (
+              <>
+                <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>
+                  Live Meetings
+                </Typography>
+                <TableContainer component={Paper} sx={{ width: "100%" }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Meeting Name</TableCell>
+                        <TableCell>Action</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {liveMeetingsData.map((data) => (
+                        <TableRow key={data._id}>
+                          <TableCell>{data.roomName}</TableCell>
+                          <TableCell>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => Navigate(`/webinars/${data.roomName}?roomID=abcde`)}
+                            >
+                              Join
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </>
             )}
           </Grid>
         </Grid>

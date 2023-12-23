@@ -13,6 +13,9 @@ const ScheduleMeeting = new mongoose.Schema({
     type: Date,
     required: true,
   },
-});
+  addictType:{
+    type: String,
+  },
+},{timestamps:true});
 
 module.exports = new mongoose.model("Schedule", ScheduleMeeting);
