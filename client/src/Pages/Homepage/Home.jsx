@@ -1,15 +1,34 @@
 // Home.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { LoggedState } from '../../context/auth';
 import { Box, Grid, Typography } from '@mui/material';
 import TaskCard from './TaskCard';
 import Sidebar from '../../components/Sidebar';
 import StreakProgress from './StreakProgress';
+import axios from 'axios';
 
 const Home = () => {
   const isLoggedIn = LoggedState();
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
+
+ const {onetime,setOneTime} = LoggedState();
+
+  useEffect(()=>{
+    const call = async () => {
+      if(onetime) {
+        const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
+        console.log(data);
+        setOneTime(0);
+      }
+    }
+    call();
+  },[currentUser])
+
+  const handlecall = async () => {
+        const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
+        console.log(data);
+  }
 
   console.log(currentUser.TaskScore);
 
@@ -53,7 +72,7 @@ const Home = () => {
         {/* Main Content */}
         <Grid item xs={12} md={9}>
           <Grid container spacing={5} justifyContent="center">
-            <Grid item xs={12}>
+            <Grid item xs={12} >
               <StreakProgress currentUser={currentUser} />
             </Grid>
             {LevelsCards.map((item, index) => (

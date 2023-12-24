@@ -18,6 +18,7 @@ const {
   addLiveMeetings,
   getLiveMeetings,
 } = require("../controllers/liveMeetings");
+const {AlertAgency} = require("../controllers/emergency");
 const route = express.Router();
 //Post Requests
 route.post("/register", Register);
@@ -29,6 +30,7 @@ route.post("/updateTaskScore/:userId", userController.updateTaskScore);
 route.post("/users/updateDailyTaskDone/:userId", updateDailyTaskDone);
 route.post("/scheduleMeeting", scheduleMeetings);
 route.post("/addLiveMeeting", addLiveMeetings);
+route.post('/emergencyCall',AlertAgency)
 
 //Get Requests
 route.get("/getUserDetails", Verifytoken, getUser);

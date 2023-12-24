@@ -9,6 +9,7 @@ const LoggedInProvider = ({ children }) => {
     const [User,setUser] = useState();
     const [selectedChat , setSelectedChat] =  useState();
     const [chats,setChats] = useState();
+    const [onetime,setOneTime] = useState(1);
 
     const [isLoggedIn, setisLoggedIn] = useState(() => {
         const storedLog = localStorage.getItem('log');
@@ -28,7 +29,9 @@ const LoggedInProvider = ({ children }) => {
         setSelectedChat,
         selectedChat,
         chats,
-        setChats
+        setChats,
+        onetime,
+        setOneTime
     };
 
     return (
