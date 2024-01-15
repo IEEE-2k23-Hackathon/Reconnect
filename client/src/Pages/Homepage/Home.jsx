@@ -14,21 +14,21 @@ const Home = () => {
 
  const {onetime,setOneTime} = LoggedState();
 
-  useEffect(()=>{
-    const call = async () => {
-      if(onetime) {
-        const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
-        console.log(data);
-        setOneTime(0);
-      }
-    }
-    call();
-  },[currentUser])
+  // useEffect(()=>{
+  //   const call = async () => {
+  //     if(onetime) {
+  //       const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
+  //       console.log(data);
+  //       setOneTime(0);
+  //     }
+  //   }
+  //   call();
+  // },[currentUser])
 
-  const handlecall = async () => {
-        const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
-        console.log(data);
-  }
+  // const handlecall = async () => {
+  //       const data = await axios.post('/api/emergencyCall',{username: currentUser.username});
+  //       console.log(data);
+  // }
 
   console.log(currentUser.TaskScore);
 
