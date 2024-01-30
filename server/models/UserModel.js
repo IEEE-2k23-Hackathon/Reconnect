@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Counselor = require("./CounsellerModel");
 
 const UserSchema = mongoose.Schema({
     username:{
@@ -38,22 +37,9 @@ const UserSchema = mongoose.Schema({
         default:0,
         required:true
     },
-    DailyTaskDone:{
-       Level1:{
+    DayCount:{
         type:Number,
-        default:0,
-        required:true
-       },
-       Level2:{
-        type:Number,
-        default:0,
-        required:true
-       },
-       Level3:{
-        type:Number,
-        default:0,
-        required:true
-       }
+        default:0
     },
     counselorDetails:{
         CounselorLicenseNumber:{
@@ -70,6 +56,26 @@ const UserSchema = mongoose.Schema({
         },
         Portfolio:{
             type:String
+        }
+    },
+    AddictionDetails:{
+        PerDay:{
+            type:Number,
+            default:0,
+        },
+        years:{
+            type:Number,
+            default:0,
+        },
+        triedToGiveUp:{
+            type:Number,
+            default:0
+        },
+        reason:{
+            type:String,
+        },
+        AvgMoney:{
+            type:Number
         }
     },
     password:{

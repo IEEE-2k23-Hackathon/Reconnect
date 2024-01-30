@@ -3,7 +3,7 @@ import Layout from '../components/Layout/Layout'
 
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -42,7 +42,7 @@ const Register = () => {
     const [isCounselor, setIsCounselor] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
@@ -60,22 +60,26 @@ const Register = () => {
             gender: data.get('gender'),
             isCounselor,
             ...isCounselor && {
-              CounselorLicenseNumber: JSON.parse(data.get('counselorLicenseNumber')),
-              Specialization: data.get('specialization'),
-              Experience: JSON.parse(data.get('experience')),
-              WorkingIn: data.get('workingIn'),
-              Portfolio: data.get('portfolio'),
+                CounselorLicenseNumber: JSON.parse(data.get('counselorLicenseNumber')),
+                Specialization: data.get('specialization'),
+                Experience: JSON.parse(data.get('experience')),
+                WorkingIn: data.get('workingIn'),
+                Portfolio: data.get('portfolio'),
             },
+            PerDay: Number(data.get('perDay')),
+            years: Number(data.get('years')),
+            triedToGiveUp: Number(data.get('triedToGiveUp')),
+            reason: data.get('reason'),
             password: data.get('password'),
-          };
+        };
 
-          console.log(register_ojt);
-          
+        console.log(register_ojt);
+
 
         try {
-            const { data } = await axios.post("/api/register",register_ojt);
+            const { data } = await axios.post("/api/register", register_ojt);
             console.log(data);
-            if(data){
+            if (data) {
                 toast.success("Registered SuccessFully ..!")
             }
             setTimeout(() => {
@@ -84,7 +88,7 @@ const Register = () => {
         } catch (error) {
             toast.error("Registered Failed ...😂");
         }
-          
+
     };
 
     return (
@@ -107,123 +111,192 @@ const Register = () => {
                             Sign in
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="User Name"
-                                name="username"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="phonenumber"
-                                label="Phone Number"
-                                name="phonenumber"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                type='email'
-                                label="Email"
-                                name="email"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-
-                                fullWidth
-                                id="age"
-
-                                label="Age"
-                                name="age"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-
-                                fullWidth
-                                id="addictType"
-
-                                label="AddictType"
-                                name="addictType"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                fullWidth
-                                id="gender"
-
-                                label="Gender"
-                                name="gender"
-                                autoFocus
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={isCounselor} onChange={(e) => setIsCounselor(e.target.checked)} />}
-                                label="I am a Counselor"
-                            />
-                            {isCounselor && (
-                                <>
+                            <Grid container spacing={10} width={'70vw'}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         margin="normal"
+                                        required
                                         fullWidth
-                                        id="counselorLicenseNumber"
-                                        label="Counselor License Number"
-                                        name="counselorLicenseNumber"
+                                        id="username"
+                                        label="User Name"
+                                        name="username"
+                                        autoFocus
+
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="phonenumber"
+                                        label="Phone Number"
+                                        name="phonenumber"
                                         autoFocus
                                     />
                                     <TextField
                                         margin="normal"
+                                        required
                                         fullWidth
-                                        id="specialization"
-                                        label="Specialization"
-                                        name="specialization"
+                                        id="email"
+                                        type='email'
+                                        label="Email"
+                                        name="email"
                                         autoFocus
                                     />
                                     <TextField
                                         margin="normal"
+
                                         fullWidth
-                                        id="experience"
-                                        label="Experience (Years)"
-                                        name="experience"
+                                        id="age"
+
+                                        label="Age"
+                                        name="age"
+                                        autoFocus
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="gender"
+
+                                        label="Gender"
+                                        name="gender"
+                                        autoFocus
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                    // style={{marginLeft:'100px'}}
+                                    />
+
+                                </Grid>
+
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        select
+                                        margin="normal"
+                                        fullWidth
+                                        id="addictType"
+                                        label="AddictType"
+                                        name="addictType"
+                                        SelectProps={{
+                                            native: true,
+                                        }}
+                                    >
+                                        <option value="Alcohol">Alcohol</option>
+                                        <option value="Cigarettes">Cigarettes</option>
+                                        <option value="Mobile">Mobile</option>
+                                    </TextField>
+
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="perDay"
+                                        label="Consumes Per Day"
+                                        name="perDay"
                                         type="number"
                                         autoFocus
                                     />
                                     <TextField
                                         margin="normal"
                                         fullWidth
-                                        id="workingIn"
-                                        label="Working in (Hospital, Clinic etc.)"
-                                        name="workingIn"
+                                        id="years"
+                                        label="Years of Addiction"
+                                        name="years"
+                                        type="number"
                                         autoFocus
                                     />
                                     <TextField
                                         margin="normal"
                                         fullWidth
-                                        id="portfolio"
-                                        label="Portfolio Link"
-                                        name="portfolio"
+                                        id="triedToGiveUp"
+                                        label="Number of Times Tried to Give Up"
+                                        name="triedToGiveUp"
+                                        type="number"
                                         autoFocus
                                     />
-                                </>
-                            )}
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="reason"
+                                        label="Reason for Addiction"
+                                        name="reason"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        id="avgMoney"
+                                        label="Average Money Spent per Week on Addiction"
+                                        name="avgMoney"
+                                        type="number"
+                                        autoFocus
+                                    />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
+                                </Grid>
+
+                                <Box
+                                    
+                                >
+                                    <FormControlLabel
+                                        control={<Checkbox checked={isCounselor} onChange={(e) => setIsCounselor(e.target.checked)} />}
+                                        label="I am a Counselor"
+                                    />
+                                    {isCounselor && (
+                                        <>
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                id="counselorLicenseNumber"
+                                                label="Counselor License Number"
+                                                name="counselorLicenseNumber"
+                                                autoFocus
+                                            />
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                id="specialization"
+                                                label="Specialization"
+                                                name="specialization"
+                                                autoFocus
+                                            />
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                id="experience"
+                                                label="Experience (Years)"
+                                                name="experience"
+                                                type="number"
+                                                autoFocus
+                                            />
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                id="workingIn"
+                                                label="Working in (Hospital, Clinic etc.)"
+                                                name="workingIn"
+                                                autoFocus
+                                            />
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                id="portfolio"
+                                                label="Portfolio Link"
+                                                name="portfolio"
+                                                autoFocus
+                                            />
+                                        </>
+                                    )}
+
+                                </Box>
+
+                            </Grid>
 
                             <Button
                                 type="submit"

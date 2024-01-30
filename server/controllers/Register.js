@@ -18,12 +18,18 @@ const Register = async (req, res) => {
         isCounselor,
         password,
 
+        PerDay,
+        years,
+        triedToGiveUp,
+        reason,
+
         CounselorLicenseNumber,
         Specialization,
         Experience,
         WorkingIn,
         Portfolio,
     } = req.body;
+
 
     try {
         const exsistingEmail = await User.findOne({ email: email });
@@ -53,10 +59,21 @@ const Register = async (req, res) => {
         Portfolio
     }
 
+    const AddictionDetails_Obj = {
+        PerDay,
+        years,
+        triedToGiveUp,
+        reason
+    }
+
+
     try {
 
         if (!isCounselor) {
-            const UserData = await User.create(USerObj);
+            const UserData = await User.create({
+                ...USerObj,
+                AddictionDetails:AddictionDetails_Obj
+            });
             return res.status(201).json({
                 UserData: UserData
             })
