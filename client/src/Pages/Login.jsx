@@ -1,168 +1,324 @@
-import React, { useState } from 'react'
-import Layout from '../components/Layout/Layout'
-import { LoggedState } from '../context/auth';
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import toast from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import Layout from "../components/Layout/Layout";
+import { LoggedState } from "../context/auth";
+import LoginImage from "./images/meditation1.png";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
-const defaultTheme = createTheme();
+const motivationalQuotes = [
+  "Recovery is not for people who need it, it's for people who want it.",
+  "Your strength is greater than your struggle.",
+  "Every accomplishment starts with the decision to try.",
+  "Believe you can, and you're halfway there. - Theodore Roosevelt",
+  "The first step towards getting somewhere is to decide that you are not going to stay where you are.",
+  "You don't have to see the whole staircase, just take the first step. - Martin Luther King Jr.",
+  "The road to recovery may be tough, but it's worth it. You're worth it.",
+  "Your past does not define your future. You have the power to change your story.",
+  "Strength grows in the moments when you think you can't go on but you keep going anyway.",
+  "The only person you are destined to become is the person you decide to be. - Ralph Waldo Emerson",
+];
+
+function getRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+  return motivationalQuotes[randomIndex];
+}
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="/">
         Reconnect
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const Login = () => {
-
   const navigate = useNavigate();
-  const {CurrentUser,setisLoggedIn,setUser} = LoggedState();
-
+  const { CurrentUser, setisLoggedIn, setUser } = LoggedState();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   console.log(CurrentUser);
 
-  const handleSubmit = async(e) => {
+  const [quote, setQuote] = useState("");
+
+  useEffect(() => {
+    // Generate a random quote when the component mounts
+    const randomQuote = getRandomQuote();
+    setQuote(randomQuote);
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {
-      toast.error(
-        "Please Fill all the Feilds",
-        {
-          duration: 3000,
-        });
+      toast.error("Please Fill all the Feilds", {
+        duration: 3000,
+      });
       return;
     }
-    
+
     try {
       const { data } = await axios.post("/api/login", {
         username,
         password,
       });
 
-      if(data.User)
-        toast.success('Logged in SuccessFully');
-      else{
+      if (data.User) toast.success("Logged in SuccessFully");
+      else {
         toast.error("User Not Found");
-        return ;
+        return;
       }
 
       console.log(data.User);
       setUser(data.User);
-      localStorage.setItem("user",JSON.stringify(data.User));
+      localStorage.setItem("user", JSON.stringify(data.User));
       setisLoggedIn(true);
-      
+
       setTimeout(() => {
         navigate("/");
-      },500);
-
+      }, 500);
     } catch (error) {
-      toast.error("Error Occured . Check UserName and PassWord ")
+      toast.error("Error Occured . Check UserName and PassWord ");
     }
   };
   return (
     <Layout title={"Login Page"}>
-      <ThemeProvider theme={defaultTheme}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
-          <CssBaseline />
-          <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
+      <Box
+        className="loginPage"
+        sx={{
+          minHeight: "100vh",
+          backgroundColor: "#1c1c2c",
+          color: "#f0f0f0",
+          display: "flex",
+        }}
+      >
+        <Box
+          className="loginPageLeft"
+          sx={{
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            variant="body1"
             sx={{
-              backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-              backgroundRepeat: 'no-repeat',
-              backgroundColor: (t) =>
-                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              textAlign: "center",
+              margin: "50px 20px 0 20px",
+              width: "90%",
+              fontFamily: "Arial, sans-serif",
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#cccccc",
+              textShadow: "1px 1px 2px rgba(0,0,0,0.1)",
+              lineHeight: "1.6",
+              letterSpacing: "0.5px",
             }}
+          >
+            {quote}
+          </Typography>
+          <img
+            src={LoginImage}
+            style={{ width: "75%", margin: "0 auto", marginBottom: "20px" }}
           />
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <Box
+        </Box>
+        <Box
+          className="loginPageRight"
+          sx={{
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            className="loginFormContainer"
+            sx={{
+              width: "80%",
+              maxWidth: "500px",
+              padding: "20px",
+              backgroundColor: "rgba(16,47,84, 0.1)",
+              backdropFilter: "blur(10px)",
+              borderRadius: "10px",
+              boxShadow: "0px 0px 10px #102f54",
+              margin: "20px",
+            }}
+          >
+            <Typography
+              variant="h5"
               sx={{
-                my: 8,
-                mx: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                textAlign: "center",
+                marginBottom: "20px",
+                color: "#cccccc",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Login Here
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              Login
+            </Typography>
+            <form
+              className="loginForm"
+              onSubmit={handleSubmit}
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="form-group"
+                style={{ width: "95%", marginBottom: "20px" }}
+              >
+                <label
+                  htmlFor="email"
+                  style={{
+                    color: "#d9d9d9",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    marginBottom: "5px",
+                  }}
+                >
+                  Email Address
+                </label>
                 <TextField
-                  margin="normal"
-                  required
-                  fullWidth
+                  type="text"
                   id="email"
-                  label="Email Address"
                   name="email"
-                  autoComplete="email"
-                  autoFocus
+                  placeholder="Username or Email"
                   value={username}
-                  onChange={(e)=>setUsername(e.target.value)}
-                />
-                <TextField
-                  margin="normal"
+                  onChange={(e) => setUsername(e.target.value)}
                   required
+                  autoFocus
                   fullWidth
-                  name="password"
-                  label="Password"
+                  InputProps={{
+                    style: {
+                      marginTop: "5px",
+                      backgroundColor: "rgba(13,52,100, 0.3)",
+                      borderRadius: "5px",
+                      color: "#d9d9d9",
+                      border: " .5px solid #102f54",
+                    },
+                    inputProps: {
+                      style: {
+                        color: "#d9d9d9",
+                      },
+                    },
+                    placeholder: "abc@gmail.com",
+                  }}
+                />
+              </div>
+              <div
+                className="form-group"
+                style={{ width: "95%", marginBottom: "20px" }}
+              >
+                <label
+                  htmlFor="password"
+                  style={{
+                    color: "#d9d9d9",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    marginBottom: "5px",
+                  }}
+                >
+                  Password
+                </label>
+                <TextField
                   type="password"
                   id="password"
-                  autoComplete="current-password"
+                  name="password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
-                />
-                <Button
-                  type="submit"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                   fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Log In
-                </Button>
-                <Grid container>
-                  <Grid item>
-                    <Link href="/register" variant="body2">
-                      {"Don't have an account ? Sign Up"}
-                    </Link>
-                  </Grid>
+                  InputProps={{
+                    style: {
+                      marginTop: "5px",
+                      backgroundColor: "rgba(13,52,100, 0.3)",
+                      borderRadius: "5px",
+                      color: "#d9d9d9",
+                      border: " .5px solid #102f54",
+                    },
+                    inputProps: {
+                      style: {
+                        color: "#d9d9d9",
+                      },
+                    },
+                    placeholder: "#*****Z",
+                  }}
+                />
+              </div>
+              <Button
+                type="submit"
+                className="btn"
+                sx={{
+                  opacity: 0.8,
+                  width: "90%",
+                  height: "40px",
+                  padding: "10px",
+                  backgroundColor: "#3f51b5",
+                  color: "#ffffff",
+                  borderRadius: "5px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  ":hover": {
+                    transform: "translateY(-3px)",
+                    transition: ".3s ease-in-out",
+                    boxShadow:
+                      "0 10px 10px rgba(0, 0,0,.09), 0 -10px 10px rgba(0, 0, 0, .08)",
+                    backgroundColor: "#3f51b5",
+                  },
+                }}
+              >
+                Log In
+              </Button>
+              <Grid
+                container
+                sx={{
+                  display: "block",
+                  width: "50%",
+                  margin: "0 auto",
+                  marginTop: "20px",
+                }}
+              >
+                <Grid item>
+                  <Link
+                    href="/register"
+                    variant="body2"
+                    className="link"
+                    sx={{
+                      color: "#3f51b5",
+                      textDecoration: "none",
+                      "&:hover": { textDecoration: "underline" },
+                    }}
+                  >
+                    {"Don't have an account ? Sign Up"}
+                  </Link>
                 </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      </ThemeProvider>
+              </Grid>
+            </form>
+          </Box>
+        </Box>
+      </Box>
     </Layout>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
