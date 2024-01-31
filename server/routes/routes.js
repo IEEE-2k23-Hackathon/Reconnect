@@ -4,8 +4,6 @@ const Login = require("../controllers/Login");
 const Logout = require("../controllers/Logout");
 const Verifytoken = require("../middlewares/verifyAuth");
 const { getUser } = require("../controllers/getUser");
-const addTask = require("../controllers/addTasks");
-const getTasks = require("../controllers/getTasks");
 const { addBlog, getBlogs } = require("../controllers/uploadBlog");
 const userController = require("../controllers/updateTaskScore");
 const updateDailyTaskDone = require("../controllers/updateLevelScore");
@@ -24,7 +22,6 @@ const route = express.Router();
 route.post("/register", Register);
 route.post("/login", Login);
 route.post("/logout", Verifytoken, Logout);
-route.post("/addTask", addTask);
 route.post("/uploadBlog", addBlog);
 route.post("/updateTaskScore/:userId", userController.updateTaskScore);
 route.post("/users/updateDailyTaskDone/:userId", updateDailyTaskDone);
@@ -34,7 +31,6 @@ route.post('/emergencyCall',AlertAgency)
 
 //Get Requests
 route.get("/getUserDetails", Verifytoken, getUser);
-route.get("/addictTasks", getTasks);
 route.get("/getBlogs", getBlogs);
 route.get("/users/:addictType", getUsersByAddictType);
 route.get("/getScheduledMeetings", getScheduledMeetings);

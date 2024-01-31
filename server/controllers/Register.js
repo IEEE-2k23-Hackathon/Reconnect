@@ -1,5 +1,4 @@
 const User = require("../models/UserModel");
-const addictTasks = require("../models/addictTasks");
 const GPT = require("./AITasks/AIModel");
 
 const bcrypt = require('bcryptjs');
