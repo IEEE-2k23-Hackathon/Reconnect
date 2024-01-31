@@ -1,8 +1,10 @@
 const User = require("../models/UserModel");
-//const Counselor = require("../models/CounsellerModel");
+const addictTasks = require("../models/addictTasks");
+const GPT = require("./AITasks/AIModel");
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 
 
@@ -66,14 +68,19 @@ const Register = async (req, res) => {
         reason
     }
 
+    
 
     try {
-
         if (!isCounselor) {
             const UserData = await User.create({
                 ...USerObj,
-                AddictionDetails:AddictionDetails_Obj
+                AddictionDetails: AddictionDetails_Obj
             });
+            try {
+                await GPT(PerDay,years,triedToGiveUp,reason,addictType,email);
+            } catch (error) {
+                console.log("Error in Calling GPT Function in Node");
+            }
             return res.status(201).json({
                 UserData: UserData
             })
@@ -82,17 +89,22 @@ const Register = async (req, res) => {
         if (allDetailsPresent) {
             const UserData = await User.create({
                 ...USerObj,
-                counselorDetails:CounselorObj
+                counselorDetails: CounselorObj
             });
+            try {
+                await GPT(PerDay,years,triedToGiveUp,reason,addictType,email);
+            } catch (error) {
+                console.log("Error in Calling GPT Function in Node");
+            }
             return res.status(201).json({
                 UserData: UserData,
             });
-        }else{
+        } else {
             const error = {
                 message: "CounselorLicenseNumber and Specialization are required!",
-                status: 400, 
-            };  
-            return res.status(error.status).json(error); 
+                status: 400,
+            };
+            return res.status(error.status).json(error);
         }
 
     } catch (error) {

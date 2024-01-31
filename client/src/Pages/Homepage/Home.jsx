@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { LoggedState } from '../../context/auth';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import TaskCard from './TaskCard';
 import Sidebar from '../../components/Sidebar';
 import StreakProgress from './StreakProgress';
@@ -12,7 +12,10 @@ const Home = () => {
   const isLoggedIn = LoggedState();
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
 
- const {onetime,setOneTime} = LoggedState();
+  const dailyTasks = currentUser.DailyTasks.tasks;
+  console.log(dailyTasks);
+
+  //console.log(currentUser);
 
   // useEffect(()=>{
   //   const call = async () => {
@@ -30,35 +33,10 @@ const Home = () => {
   //       console.log(data);
   // }
 
-  console.log(currentUser.TaskScore);
-
-  const LevelsCards = [
-    { title: 'Level1', description: 'Description for Level 1', image: 'Lvl1.png' },
-    { title: 'Level2', description: 'Description for Level 2', image: 'Lvl2.png' },
-    { title: 'Level3', description: 'Description for Level 3', image: 'Lvl3.png' },
-    // Add more data as needed
-  ];
-
-  const calculateUnlockedLevels = () => {
-    const taskScore = currentUser.TaskScore || 0;
-    let unlockedLevels = [];
-
-    if (taskScore >= 0) {
-      unlockedLevels.push(1);
-    }
-
-    if (taskScore >= 5) {
-      unlockedLevels.push(2);
-    }
-
-    if (taskScore >= 10) {
-      unlockedLevels.push(3);
-    }
-
-    return unlockedLevels;
+  const handleCheckboxChange = (event, index) => {
+    // Handle checkbox change logic here
   };
 
-  const unlockedLevels = calculateUnlockedLevels();
 
 
   return (
@@ -72,21 +50,48 @@ const Home = () => {
         {/* Main Content */}
         <Grid item xs={12} md={9}>
           <Grid container spacing={5} justifyContent="center">
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <StreakProgress currentUser={currentUser} />
             </Grid>
-            {LevelsCards.map((item, index) => (
-              (
-                unlockedLevels.includes(index + 1) ?
-                  <Grid item xs={12} sm={4} key={index}>
-                    <TaskCard {...item} locked={0} />
-                  </Grid>
-                  :
-                  <Grid item xs={12} sm={4} key={index}>
-                    <TaskCard {...item} locked={1} />
-                  </Grid>
-              )
-            ))}
+            {/* Display Daily Tasks */}
+            <Grid item xs={12}>
+              <Typography
+                style={{
+                  fontSize:'2rem',
+                  fontWeight:900,
+                  fontFamily:IDBIndex
+                }}
+              >
+                Today Tasks Set by Using AI based on Previous inputs : 
+              </Typography>
+              <div style={{ marginTop: '20px' }}>
+                <List>
+                  {dailyTasks.map((task, index) => (
+                    <ListItem key={task._id} disableGutters style={{ marginBottom: '10px' }}>
+                      <ListItemText
+                        primary={<Typography variant="h6">{task.title}</Typography>}
+                        secondary={<Typography variant="body1">{task.description}</Typography>}
+                      />
+                      <Checkbox
+                        color="primary"
+                        onClick={(event) => handleCheckboxChange(event, index)}
+                        sx={{ mr: '15vw' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+              {/* Completed the Day button */}
+              <Button
+                variant="contained"
+                color="secondary"
+                fullWidth
+                //onClick={}
+                sx={{ marginTop: '20px' }}
+              >
+                Completed the Day
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

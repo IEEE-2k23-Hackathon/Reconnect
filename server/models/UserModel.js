@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const taskSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    description:{
+      type: String,
+      required: true,
+    },
+});
+
 const UserSchema = mongoose.Schema({
     username:{
         type:String,
@@ -77,6 +88,9 @@ const UserSchema = mongoose.Schema({
         AvgMoney:{
             type:Number
         }
+    },
+    DailyTasks:{
+        tasks:[taskSchema]
     },
     password:{
         type:String,
