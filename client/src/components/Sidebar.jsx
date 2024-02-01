@@ -54,7 +54,7 @@ const Sidebar = () => {
             to="/"
             sx={{ ":hover": { filter: "invert()" } }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ color: "white" }}>
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" />
@@ -66,7 +66,7 @@ const Sidebar = () => {
             to="/webinars"
             sx={{ ":hover": { filter: "invert()" } }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ color: "white" }}>
               <EventIcon />
             </ListItemIcon>
             <ListItemText primary="Webinars" />
@@ -78,7 +78,7 @@ const Sidebar = () => {
             to="/communitychat"
             sx={{ ":hover": { filter: "invert()" } }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ color: "white" }}>
               <ChatIcon />
             </ListItemIcon>
             <ListItemText primary="Community Chat" />
@@ -90,7 +90,7 @@ const Sidebar = () => {
             to="/success-stories"
             sx={{ ":hover": { filter: "invert()" } }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ color: "white" }}>
               <StarIcon />
             </ListItemIcon>
             <ListItemText primary="Success Stories" />
@@ -100,9 +100,11 @@ const Sidebar = () => {
             button
             component={Link}
             to="/rewards"
-            sx={{ ":hover": { filter: "invert()" } }}
+            sx={{
+              ":hover": { filter: "invert()" },
+            }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ color: "white" }}>
               <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Rewards" />
