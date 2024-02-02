@@ -100,7 +100,7 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
                         { $set: { DailyTasks: { tasks: obj.tasks } } },
                         { new: true, upsert: true }
                     );
-                    console.log("Updated AddictTasks:", addictTasks);
+                    console.log("Updated AddictTasks:");
                 } else {
                     console.error("Parsed response does not have 'tasks' property:", obj);
                     throw new Error("Invalid response format");

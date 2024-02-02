@@ -73,17 +73,41 @@ const Register = () => {
             password: data.get('password'),
         };
 
-        console.log(register_ojt);
+        //console.log(register_ojt);
 
+        // Add to Specific Chat grps
 
         try {
             const { data } = await axios.post("/api/register", register_ojt);
             console.log(data);
             if (data) {
+                const user = data.UserData;
+                try {
+                    let grp;
+                    if (user.addictType === 'Mobile') {
+                        //console.log(user.addictType);
+                        grp = '65bce83452917adafa42b390';
+                    } else if (user.addictType === 'Cigarettes') { // Fix here
+                        //console.log(user.addictType);
+                        grp = '65bce75752917adafa42b351';
+                    }
+                    console.log(grp);
+                    const res = await axios.post("/chatroom/addToGroup",{
+                        groupID:grp,
+                        userID:user._id
+                    });
+                    console.log(res.data);
+                    toast.success("SuccessFully added to Community ..!")
+
+                } catch (error) {
+                    console.log(error);
+                    toast.error(error);
+                }
+                
                 toast.success("Registered SuccessFully ..!")
             }
             setTimeout(() => {
-                navigate("/login");
+                navigate('/login');
             }, 500);
         } catch (error) {
             toast.error("Registered Failed ...😂");

@@ -17,16 +17,14 @@ const ChatBox = () => {
           <Grid container spacing={5} height="100%">
 
           <Box
-            display={{ xs: 'flex', md: 'flex' }}
-            alignItems="center"
-            flexDirection="column"
-            padding={3}
+            padding={2}
             marginRight={10}
+            marginTop={2}
             marginLeft={5}
             bgcolor="white"
-            width={{ xs: '100%', md: '68%' }}
+            width={'70vw'}
             borderRadius="lg"
-            border="1px solid"
+            border="1px solid purple"
             height={'100%'}
           >
             <SingleChat />

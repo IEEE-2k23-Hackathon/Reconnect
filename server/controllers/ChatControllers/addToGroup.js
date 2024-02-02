@@ -10,8 +10,7 @@ const addToGroup = async(req,res) =>{
             $push:{users : userID}
         },
         {new:true}
-    ).populate('users','-password')
-     .populate('GroupAdmin','-password');
+    ).populate('users','-password');
 
      if(!add){
         res.status(400)

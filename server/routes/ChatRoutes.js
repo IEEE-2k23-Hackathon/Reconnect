@@ -9,25 +9,18 @@ const allMessages = require('../controllers/MessgaeControllers/allMessages');
 const addToGroup = require('../controllers/ChatControllers/addToGroup');
 
 
-
-
 //Post Requests
 routes.post('/createGroup',Verifytoken,createGroupChat);
-
 routes.get('/fetchUserChats',Verifytoken,fetchChats);
 
 //put Requests
-routes.put('/addToGroup',Verifytoken,addToGroup);
-
+routes.post('/addToGroup',addToGroup);
 
 //Messaging Routes
-
 //post Requests
 routes.post('/sendMsg',Verifytoken,sendMessage);
 
-
 //Get requests
-
 routes.get('/getMsg/:chatID',Verifytoken,allMessages)
 
 

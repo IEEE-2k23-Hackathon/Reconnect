@@ -12,10 +12,17 @@ var socket, selectedChatCompare;
 const SingleChat = () => {
   const { isLoggedIn } = LoggedState();
   const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
+  
 
-  const selectedChat = {
-    _id: '65869e2c6ebed2e4b1dc4082',
-  };
+  let selectedChat = {};
+
+  if (CurrentUser.addictType === 'Mobile') {
+    //console.log(user.addictType);
+    selectedChat._id = '65bce83452917adafa42b390';
+  } else if (CurrentUser.addictType === 'Cigarettes') { // Fix here
+    //console.log(user.addictType);
+    selectedChat._id = '65bce75752917adafa42b351';
+  }
 
   const [SocketConnected, setSocketConnected] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -33,7 +40,7 @@ const SingleChat = () => {
       setMessages(data);
       setLoading(false);
 
-      socket.emit('join chat', selectedChat._id);
+      socket.emit('joinchat', selectedChat._id);
     } catch (err) {
       console.log(err.message);
     }
@@ -64,7 +71,7 @@ const SingleChat = () => {
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on('Msg recieved', (newMessageRecieved) => {
+    socket.on('Msgrecieved', (newMessageRecieved) => {
       if (selectedChatCompare && selectedChatCompare._id === newMessageRecieved.chat._id) {
         setMessages([...messages, newMessageRecieved]);
       }
@@ -80,7 +87,7 @@ const SingleChat = () => {
         });
 
         setNewMessage('');
-        socket.emit('new message', data);
+        socket.emit('newmessage', data);
         setMessages([...messages, data]);
       } catch (err) {
         console.log(err.message);
@@ -93,8 +100,8 @@ const SingleChat = () => {
   };
 
   return (
-    <Box height={'110%'} width={'90%'}>
-    
+    <Box height={'100%'} width={'65vw'} display={'flex'} flexDirection={'column'}>
+
       {selectedChat ? (
         <>
           <Typography
@@ -125,13 +132,13 @@ const SingleChat = () => {
             p={2} // Adjusted padding
             bgcolor="#E8E8E8"
             width="100%"
-            height="auto"
+            height="100%"
             borderRadius="lg"
           >
             {loading ? (
               <CircularProgress size={20} thickness={4} />
             ) : (
-              <div className="messages" style={{ overflowY: 'auto', padding: '10px' }}>
+              <div className="messages" >
                 <ScrollChat messages={messages} />
               </div>
             )}
@@ -143,7 +150,7 @@ const SingleChat = () => {
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
-                sx={{border:"1px solid black",padding:"2vh"}}
+                sx={{ border: "1px solid black", padding: "2vh" }}
               />
             </FormControl>
           </Box>

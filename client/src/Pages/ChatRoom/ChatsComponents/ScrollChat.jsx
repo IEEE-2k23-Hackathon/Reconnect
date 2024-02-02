@@ -37,7 +37,7 @@ const ScrollChat = ({ messages }) => {
     
     <div
       ref={chatContainerRef}
-      style={{ maxHeight: '60vh', overflowY: 'auto' }}
+      style={{ height:'50vh', overflowY: 'auto' }}
     >
       <Toaster />
       {messages &&
