@@ -53,7 +53,7 @@ const HostWebinar = () => {
       console.log("Error during fetch:", error);
     }
 
-    Navigate("/webinars/" + roomName);
+    Navigate("/webinars/" + roomName + "?roomID=abcde");
     console.log("Creating live stream");
   };
 
@@ -99,6 +99,7 @@ const HostWebinar = () => {
           }),
         }
       );
+      window.location.reload();
       console.log("scheduled a meeting");
 
       if (!response.ok) {
@@ -150,19 +151,19 @@ const HostWebinar = () => {
 
           {isCounselor && (
             <>
-          <Typography variant="h6" gutterBottom>
-            Host Webinar
-          </Typography>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="roomName"
-              label="roomName"
-              type="roomName"
-              id="roomName"
-              onChange={(e) => setRoomName(e.target.value)}
-            />
+              <Typography variant="h6" gutterBottom>
+                Start a Webinar Instantly
+              </Typography>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="roomName"
+                label="roomName"
+                type="roomName"
+                id="roomName"
+                onChange={(e) => setRoomName(e.target.value)}
+              />
             </>
           )}
           <Grid item xs={12} md={9}>
@@ -179,20 +180,20 @@ const HostWebinar = () => {
 
             {/* scheduleMeetings */}
             {isCounselor && (
-               <>
-               <Typography variant="h6" gutterBottom>
-                 Host Webinar
-               </Typography>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="roomName"
-                label="roomName"
-                type="roomName"
-                id="roomName"
-                onChange={(e) => setRoomName(e.target.value)}
-              />
+              <>
+                <Typography variant="h6" gutterBottom>
+                  Schedule a Webinar
+                </Typography>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="roomName"
+                  label="roomName"
+                  type="roomName"
+                  id="roomName"
+                  onChange={(e) => setRoomName(e.target.value)}
+                />
               </>
             )}
             {isCounselor && (
@@ -216,7 +217,7 @@ const HostWebinar = () => {
                 required
                 fullWidth
                 name="date"
-                label="Date"
+
                 type="date"
                 id="date"
                 onChange={(e) => setDate(e.target.value)}

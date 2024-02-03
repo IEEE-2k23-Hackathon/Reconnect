@@ -27,8 +27,8 @@ export default function App() {
   React.useEffect(() => {
     const myMeeting = async () => {
       // generate Kit Token
-      const appID = 1678908268;
-      const serverSecret = "fd4c6273f0e4bf1fe0ec7556158ca586";
+      const appID = 1596941807;
+      const serverSecret = "3614045be9fb4a63e28633c789e68478";
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
