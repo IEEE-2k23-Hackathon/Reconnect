@@ -127,9 +127,9 @@ const Landing = () => {
       </section>
       
       {/* <!-- Features --> */}
-    <section class="bg-myColor py-20 mt-20 lg:mt-60">
+    <section class="bg-myColor py-20 mt-0 lg:mt-10">
       {/* <!-- Heading --> */}
-      <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
+      <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2 h-auto">
         <h1 class="text-3xl text-center text-white">Features</h1>
         <p class="text-center text-white mt-4">
           Our aim is to make it quick and easy for you to access your favourite websites. Your bookmarks sync between
@@ -210,28 +210,9 @@ Embark on a journey through our curated success stories, where real-life triumph
 
 
     <footer class="bg-white shadow dark:bg-gray-900 m-0">
-    <div class="w-full max-w-screen-xl mx-auto p-10 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                {/* <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> */}
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">RECONNECT</span>
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <div class="w-full max-w-screen-xl mx-auto p-8 md:py-5">
+        
+        {/* <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" /> */}
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#" class="hover:underline">RECONNECT.</a> All Rights Reserved.</span>
     </div>
 </footer>
