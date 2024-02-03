@@ -4,12 +4,14 @@ import Trackimg from "../images/track.png"
 import Blogimg from "../images/blog1.png"
 import Webinarimg from "../images/webinar.png"
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
+  const nav = useNavigate();
   return (
     // <div className="bg-myColor w-full h-screen">
     <div className="bg-myColor">
- {/* <header className="text-gray-400 bg-myColor body-font">
+      {/* <header className="text-gray-400 bg-myColor body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <a className="flex title-font font-medium items-center text-white  md:mb-0 align-baseline">
             <span className="ml-3 text-xl">RECONNECT.</span>
@@ -50,42 +52,48 @@ const Landing = () => {
         </div>
       </header> */}
 
-<header>
-    <nav class="bg-blueGray-800 border-gray-200 px-4 lg:px-6 py-4">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <header>
+        <nav class="bg-blueGray-800 border-gray-200 px-4 lg:px-6 py-4">
+          <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="#" class="flex items-center">
-                {/* <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> */}
-                <span class="self-center text-xl font-semibold whitespace-nowrap text-white">RECONNECT.</span>
+              {/* <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> */}
+              <span class="self-center text-xl font-semibold whitespace-nowrap text-white">RECONNECT.</span>
             </a>
             <div class="flex items-center lg:order-2">
-                {/* <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a> */}
-                <a href="#" class="text-white bg-indigo-400 hover:bg-indigo-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Get started</a>
+              {/* <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a> */}
+              <a
+                onClick={() => { nav('/register') }}
+                className="text-white bg-indigo-400 hover:bg-indigo-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
+              >
+                Get started
+              </a>
+
             </div>
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 invisible">
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Company</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                    </li>
-                </ul>
+              <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 invisible">
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</a>
+                </li>
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Company</a>
+                </li>
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
+                </li>
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
+                </li>
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
+                </li>
+                <li>
+                  <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                </li>
+              </ul>
             </div>
-        </div>
-    </nav>
-</header>
+          </div>
+        </nav>
+      </header>
 
       <section className="text-gray-400 bg-myColor body-font">
         <div className="container mx-auto flex px-5 py-15 md:flex-row flex-col items-center">
@@ -107,17 +115,23 @@ const Landing = () => {
             </h1>
 
             <p className="mb-7 leading-relaxed text-left pr-10">
-            Start your journey to recovery with our platform. Track progress, join expert-led webinars, and celebrate milestones with visual streaks.
-             Our supportive community and weekly leaderboards are here to guide you towards an addiction-free life. Your brighter future begins now.
+              Start your journey to recovery with our platform. Track progress, join expert-led webinars, and celebrate milestones with visual streaks.
+              Our supportive community and weekly leaderboards are here to guide you towards an addiction-free life. Your brighter future begins now.
             </p>
             <div className="flex justify-center">
-              <a href="/chat/203d150a-6d43-44b1-b65a-7d4794df2c1b">
-                <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                    Sign Up
+              <a>
+                <button
+                  className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                  onClick={() => { nav('/register') }}
+                >
+                  Sign Up
                 </button>
               </a>
-              <button className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">
-                <a href="#">
+              <button
+                className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
+                onClick={() => { nav('/login') }}
+              >
+                <a>
                   Login
                 </a>
               </button>
@@ -125,11 +139,11 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      
+
       {/* <!-- Features --> */}
-    <section class="bg-myColor py-20 mt-0 lg:mt-10">
+    <section class="bg-myColor py-20 mt-20 lg:mt-60">
       {/* <!-- Heading --> */}
-      <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2 h-auto">
+      <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
         <h1 class="text-3xl text-center text-white">Features</h1>
         <p class="text-center text-white mt-4">
           Our aim is to make it quick and easy for you to access your favourite websites. Your bookmarks sync between
@@ -210,17 +224,36 @@ Embark on a journey through our curated success stories, where real-life triumph
 
 
     <footer class="bg-white shadow dark:bg-gray-900 m-0">
-    <div class="w-full max-w-screen-xl mx-auto p-8 md:py-5">
-        
-        {/* <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" /> */}
+    <div class="w-full max-w-screen-xl mx-auto p-10 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                {/* <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> */}
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">RECONNECT</span>
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#" class="hover:underline">RECONNECT.</a> All Rights Reserved.</span>
     </div>
 </footer>
 
 
     </div>
-    
-    
+
+
   )
 }
 
