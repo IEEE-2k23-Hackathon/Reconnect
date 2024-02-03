@@ -141,7 +141,7 @@ const Landing = () => {
       </section>
 
       {/* <!-- Features --> */}
-    <section class="bg-myColor py-20 mt-20 lg:mt-60">
+    <section class="bg-myColor py-20 mt-10 lg:mt-5">
       {/* <!-- Heading --> */}
       <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
         <h1 class="text-3xl text-center text-white">Features</h1>
@@ -167,7 +167,7 @@ const Landing = () => {
             <p class="text-white my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
 Embark on a journey through our curated success stories, where real-life triumphs provide a beacon of hope. Witness the collective sense of achievement as communities unite to overcome challenges, reinforcing the powerful reminder that you are not alone in your aspirations. These stories resonate, inspire, and illustrate the strength found in shared human experiences, creating a source of motivation on your path to success.
             </p>
-            <button href="#" class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600">More Info</button>
+            <button onClick={() => { nav('/register') }}  class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600">More Info</button>
           </div>
         </div>
         
@@ -192,7 +192,7 @@ Embark on a journey through our curated success stories, where real-life triumph
             gathering for healing and understanding, fostering a sense of community and shared strength on your 
             journey towards well-being and personal growth.
             </p>
-            <button href="#" class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600 mt-3">More Info</button>
+            <button onClick={() => { nav('/register') }}  class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600 mt-3">More Info</button>
           </div>
         </div>
         
@@ -214,7 +214,7 @@ Embark on a journey through our curated success stories, where real-life triumph
             <p class="text-white my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
             Empower your journey with our comprehensive tracker, streaks, and leaderboards. Monitor and manage your daily recovery tasks, following a clear roadmap for success. Celebrate your achievements visually as you build and maintain streaks in completing tasks. Engage in weekly leaderboards that recognize and applaud your progress, fostering a sense of accomplishment and motivation on your path to success.
             </p>
-            <button href="#" class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600">More Info</button>
+            <button onClick={() => { nav('/register') }} class="bg-indigo-500 hover:bg-bookmark-white text-white rounded-2xl px-4 py-3 hover:bg-indigo-600">More Info</button>
           </div>
         </div>
         
@@ -224,28 +224,8 @@ Embark on a journey through our curated success stories, where real-life triumph
 
 
     <footer class="bg-white shadow dark:bg-gray-900 m-0">
-    <div class="w-full max-w-screen-xl mx-auto p-10 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                {/* <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> */}
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">RECONNECT</span>
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <div class="w-full max-w-screen-xl mx-auto p-10 md:py-4">
+
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#" class="hover:underline">RECONNECT.</a> All Rights Reserved.</span>
     </div>
 </footer>
