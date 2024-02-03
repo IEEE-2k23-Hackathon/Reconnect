@@ -20,7 +20,7 @@ function App() {
 
   const RequireAuth = ({ children }) => {
     console.log(isLoggedIn);
-    return isLoggedIn ? children : <Navigate to="/login" />;
+    return isLoggedIn ? children : <Navigate to="/landing" />;
   };
 
   return (
@@ -42,15 +42,6 @@ function App() {
       <Route exact path="/rewards" element={<LeaderBoard/>} />
       <Route exact path="/landing" element={<Landing/>} />
 
-
-      <Route
-        path="/Tasks/:level/:addictType"
-        element={
-          <RequireAuth>
-            <DailyTask />
-          </RequireAuth>
-        }
-      />
       <Route
         path="/success-stories"
         element={
