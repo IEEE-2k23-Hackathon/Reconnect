@@ -1,25 +1,67 @@
-import React  from 'react';
-import Box from '@mui/material/Box';
-import ChatBox from './ChatsComponents/ChatBox';
-import { LoggedState } from '../../context/auth';
+// import React from "react";
+// import Box from "@mui/material/Box";
+// import ChatBox from "./ChatsComponents/ChatBox";
+// import { LoggedState } from "../../context/auth";
+
+// const ChatsPage = () => {
+//   const isLoggedIn = LoggedState();
+//   const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem("user")) : 0;
+
+//   return (
+//     <div
+//       style={{
+//         width: "80%",
+//         margin: "0 auto",
+//         backgroundColor: "white",
+//         minHeight: "100vh",
+//         border: "2px solid red",
+//         paddingTop: "20px",
+//       }}
+//     >
+//       <Box
+//         display="flex"
+//         justifyContent="flex-end"
+//         paddingTop={5}
+//         width="100%"
+//         height="95%"
+//       >
+//         {CurrentUser && <ChatBox />}
+//       </Box>
+//     </div>
+//   );
+// };
+
+// export default ChatsPage;
+
+import React from "react";
+import Box from "@mui/material/Box";
+import ChatBox from "./ChatsComponents/ChatBox";
+import { LoggedState } from "../../context/auth";
 
 const ChatsPage = () => {
-
   const isLoggedIn = LoggedState();
-  const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user')) : 0;
+  const CurrentUser = isLoggedIn ? JSON.parse(localStorage.getItem("user")) : 0;
 
   return (
-    <div style={{ width: '100%', backgroundColor: 'white', minHeight: '100vh' }}>
+    <div
+      style={{
+        width: "100%",
+        margin: "0 auto",
+        backgroundColor: "#4d7aab",
+        height: "110vh",
+        paddingBottom: "80px",
+        overflow: "hidden",
+        paddingRight: "60px",
+      }}
+    >
       <Box
         display="flex"
-        justifyContent="space-between"
+        justifyContent="flex-end"
         paddingTop={5}
         width="100%"
-        height="90vh"
+        height="95%"
       >
-        {CurrentUser && (
-          <ChatBox />
-        )}
+        {CurrentUser && <ChatBox />}
       </Box>
     </div>
   );
