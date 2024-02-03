@@ -17,6 +17,7 @@ const {
   getLiveMeetings,
 } = require("../controllers/liveMeetings");
 const {AlertAgency} = require("../controllers/emergency");
+const GPTNextDay = require("../controllers/AITasks/updateNextDay");
 const route = express.Router();
 //Post Requests
 route.post("/register", Register);
@@ -24,7 +25,8 @@ route.post("/login", Login);
 route.post("/logout", Verifytoken, Logout);
 route.post("/uploadBlog", addBlog);
 route.post("/updateTaskScore/:userId", userController.updateTaskScore);
-route.post("/users/updateDailyTaskDone/:userId", updateDailyTaskDone);
+route.post('/updateNextDay',GPTNextDay);
+//route.post("/users/updateDailyTaskDone/:userId", updateDailyTaskDone);
 route.post("/scheduleMeeting", scheduleMeetings);
 route.post("/addLiveMeeting", addLiveMeetings);
 route.post('/emergencyCall',AlertAgency)

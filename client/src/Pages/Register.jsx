@@ -80,21 +80,23 @@ const Register = () => {
       password: data.get("password"),
     };
 
-    console.log(register_ojt);
+        console.log(register_ojt);
 
-    try {
-      const { data } = await axios.post("/api/register", register_ojt);
-      console.log(data);
-      if (data) {
-        toast.success("Registered SuccessFully ..!");
-      }
-      setTimeout(() => {
-        navigate("/login");
-      }, 500);
-    } catch (error) {
-      toast.error("Registered Failed ...😂");
-    }
-  };
+
+        try {
+            const { data } = await axios.post("/api/register", register_ojt);
+            console.log(data);
+            if (data) {
+                toast.success("Registered SuccessFully ..!")
+            }
+            setTimeout(() => {
+                navigate("/login");
+            }, 500);
+        } catch (error) {
+            toast.error("Registered Failed ...😂");
+        }
+
+    };
 
   return (
     <Box

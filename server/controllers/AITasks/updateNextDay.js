@@ -1,18 +1,19 @@
-// Assuming you are using the 'axios' library for HTTP requests in JavaScript
-// Install it using npm install axios
 const axios = require('axios');
 const UserModel = require('../../models/UserModel');
 require("dotenv").config();
 
-
-// Set your OpenAI API key
 const API_KEY = process.env.ChatGPT_KEY;
 const API_INSTRUCTION = "You are a helpful assistant.";
 
 // Initialize an array to store conversation messages
 const messages = [{ "role": "system", "content": API_INSTRUCTION }];
 
-const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
+const GPTNextDay = async (req,res) => {
+    
+    console.log(("Hiiiiiiiiiiii"));
+    const {email,tasks,addictType,PerDay, years, triedToGiveUp, reason} = req.body;
+
+    console.log(email,tasks);
 
     // Function to interact with the ChatGPT model
     async function chatGPT(message, history) {
@@ -63,7 +64,7 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
         description:
         type: String
         ....
-        i want you to design 5 task following the title,description schema given to you if i consume ${PerDay} cigarattes per day and i have been using the cigarattes from ${years} and i have tried ${triedToGiveUp} to quit and reson for this is ${reason} i want today task to design in such a way based on the info given if I start today .. give in json format stricty no extra words`;
+        i want you to design 5 task following the title,description schema given to you if i consume ${PerDay} cigarattes per day and i have been using the cigarattes from ${years} and i have tried ${triedToGiveUp} to quit and reson for this is ${reason} i want today task to design in such a way based on the info given and dont repeat is the tasks previoulsy given ${tasks} .. just the response only in json object only if u give other words or explaination i cannot filter the respinse as i am using chatgpt APi`;
     }
     else if (addictType == 'Alcohol') {
         command = `title: 
@@ -72,7 +73,7 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
         description:
         type: String
         ....
-        i want you to design 5 task following the title,description schema given to you if i consume ${PerDay} units of alcohol per day and i have been using alcohol from ${years} and i have tried ${triedToGiveUp} to quit and reson for this is ${reason} i want today task to design in such a way based on the info given if I start Today .. give in json format stricty no extra words`;
+        i want you to design 5 task following the title,description schema given to you if i consume ${PerDay} units of alcohol per day and i have been using alcohol from ${years} and i have tried ${triedToGiveUp} to quit and reson for this is ${reason} i want today task to design in such a way based on the info given and dont repeat is the tasks previoulsy given ${tasks} .. just the response only in json object only if u give other words or explaination i cannot filter the respinse as i am using chatgpt APi`;
     }
     else if (addictType == 'Mobile'){
         command = `title: 
@@ -81,7 +82,7 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
     description:
       type: String
       ....
-        i want you to design 5 task following the title,description schema given to you if i use my mobile phone for ${PerDay} hours per day and i have been using the phone from ${years} and i have tried ${triedToGiveUp} to reduce usage and the reason for this is ${reason} i want today's task to be designed in such a way based on the info given if I start today .. give in json format strictly no extra words`;
+        i want you to design 5 task following the title,description schema given to you if i use my mobile phone for ${PerDay} hours per day and i have been using the phone from ${years} and i have tried ${triedToGiveUp} to reduce usage and the reason for this is ${reason} i want today's task to be designed in such a way based on the info given and dont repeat is the tasks previoulsy given ${tasks} .. just the response only in json object only if u give other words or explaination i cannot filter the respinse as i am using chatgpt APi`;
     }
     
 
@@ -100,7 +101,9 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
                         { $set: { DailyTasks: { tasks: obj.tasks } } },
                         { new: true, upsert: true }
                     );
-                    console.log("Updated AddictTasks:");
+                    const user = addictTasks;
+                    console.log("Tasked Got from AI");
+                    return res.status(200).json({ message: 'Tasks updated successfully', user });
                 } else {
                     console.error("Parsed response does not have 'tasks' property:", obj);
                     throw new Error("Invalid response format");
@@ -113,6 +116,6 @@ const GPT = async (PerDay, years, triedToGiveUp, reason, addictType, email) => {
         .catch(error => console.error(error));
 }
 
-module.exports = GPT;
+module.exports = GPTNextDay;
 
 

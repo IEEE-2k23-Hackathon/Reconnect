@@ -51,7 +51,7 @@ const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
 }));
 
 const StreakProgress = ({ currentUser }) => {
-  const totalDays = 15; // Fixed total days
+  const totalDays = 21; // Fixed total days
   const streakDays = currentUser.TaskScore || 0; // Streak days based on TaskScore
   const remainingDays = totalDays - streakDays;
 
@@ -110,7 +110,7 @@ const StreakProgress = ({ currentUser }) => {
           justifyContent: "space-between",
           mt: 2,
           padding: " 15px 40px",
-          backgroundColor: "#F9DC5C",
+          backgroundColor: "#0bf",
           backdropFilter: "blur(10px)",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px #102f54",
