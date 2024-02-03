@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Grid, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material';
 import { LoggedState } from '../../context/auth';
 import Sidebar from '../../components/Sidebar';
 
@@ -30,32 +30,42 @@ const LeaderBoard = () => {
     const sortedLeaderboard = leaderboardData.sort((a, b) => b.TaskScore - a.TaskScore);
 
     return (
-        <Grid container spacing={2} sx={{ width: '100%', margin: '0 auto' }}>
+        <Grid container spacing={3} sx={{ width: '100%', margin: '0 auto' }}>
             {/* Sidebar */}
-            <Grid item xs={12} md={3}>
+            <Grid item xs={11} md={2}>
                 <Sidebar />
             </Grid>
 
+            
             {/* Main Content */}
-            <Grid item xs={12} md={9} marginLeft={'-5vw'}>
-                <div>
-                    <Typography variant="h4" gutterBottom>
+            <Grid item xs={12} md={9} marginLeft={'-1%'} marginTop={'-1.8%'} sx={{
+                background:"#4d7aab",
+                alignItems: "center"
+            }}>
+                <Box className="leader board"
+                sx={{
+                    minHeight : "100vh",
+                    minWidth: "113%",
+                    backgroundColor: "#4d7aab",
+                    paddingTop:"50px"
+                }}>
+                    <Typography variant="h4" gutterBottom color={"white"} sx={{textAlign: "center"}}>
                         Leaderboard
                     </Typography>
-                    <TableContainer component={Paper} sx={{ maxHeight: '400px', overflowY: 'auto' }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>#Rank</TableCell>
-                                    <TableCell>User</TableCell>
-                                    <TableCell>Task Score</TableCell>
-                                    <TableCell>Joined at</TableCell>
+                    <TableContainer component={Paper} sx={{ maxHeight: '400px', width: "90%" , overflowY: 'auto' , margin: "0 auto" , borderRadius:'10px'}}>
+                        <Table style={{backgroundColor:"#e8e6e6" , paddingLeft:"50px" }} >
+                            <TableHead style={{borderBottom:"2px solid #1f1f1f" , fontWeight:800}}>
+                                <TableRow  >
+                                    <TableCell style={{fontWeight:750 , paddingLeft:"50px"}}>#Rank</TableCell>
+                                    <TableCell style={{fontWeight:750}}>User</TableCell>
+                                    <TableCell style={{fontWeight:750}}>Task Score</TableCell>
+                                    <TableCell style={{fontWeight:750}}>Joined at</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            <TableBody >
                                 {sortedLeaderboard.map((user, index) => (
-                                    <TableRow key={user._id}>
-                                        <TableCell>{index + 1}</TableCell>
+                                    <TableRow key={user._id} style={{borderBottom:"2px solid #D3D3D3"}}>
+                                        <TableCell sx={{paddingLeft:"50px"}}>{index + 1}</TableCell>
                                         <TableCell>{user.username}</TableCell>
                                         <TableCell>{user.TaskScore}</TableCell>
                                         <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
@@ -64,8 +74,10 @@ const LeaderBoard = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
+                </Box>
             </Grid>
+
+
         </Grid>
     );
 };
