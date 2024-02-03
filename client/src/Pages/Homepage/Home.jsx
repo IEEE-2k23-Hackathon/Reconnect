@@ -18,6 +18,10 @@ import Sidebar from "../../components/Sidebar";
 import StreakProgress from "./StreakProgress";
 import axios from "axios";
 import { styled } from "@mui/system";
+<style>
+  @import
+  url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@500&family=Rubik+Glitch+Pop&family=Ubuntu&display=swap');
+</style>;
 
 const StyledContainer = styled("div")({
   position: "relative",
@@ -26,16 +30,14 @@ const StyledContainer = styled("div")({
 
 const StyledContent = styled("div")({
   padding: "20px", // Adjust padding as needed
-  background: "#fff", // Adjust background color as needed
-  borderLeft: "5px solid #1c1c2c",
-  borderTop: "5px solid #1c1c2c",
+  // background: "#fff", // Adjust background color as needed
+  background: "#43de83",
+  // borderLeft: "5px solid #1c1c2c",
+  // borderTop: "5px solid #1c1c2c",
   backdropFilter: "blur(10px)",
   borderRadius: "6px",
   boxShadow: "0px 0px 4px #1c1c2c",
   textAlign: "center",
-  ":hover": {
-    backgroundColor: "#7FFF00",
-  },
 });
 
 const motivationalQuotes = [
@@ -188,7 +190,7 @@ const Home = () => {
           paddingRight: "5vw",
           paddingTop: "5vh",
           paddingBottom: "5vh",
-          backgroundColor: "#0bf",
+          background: "#4d7aab",
         }}
       >
         {/* Sidebar */}
@@ -210,8 +212,9 @@ const Home = () => {
               <Typography
                 style={{
                   fontSize: "2rem",
-                  fontWeight: 900,
-                  fontFamily: IDBIndex,
+                  fontWeight: 800,
+                  fontFamily: "-moz-initial",
+                  color: "#0d3464",
                 }}
               >
                 Today Tasks Set by Using AI based on Previous inputs :
@@ -261,11 +264,10 @@ const Home = () => {
                   padding: "15px 0",
                   backgroundColor: "#0d3464",
                   color: "white",
-                  backdropFilter: "blur(10px)",
                   borderRadius: "10px",
                   boxShadow: "0px 0px 10px #102f54",
                   ":hover": {
-                    backgroundColor: "#7FFF00",
+                    backgroundColor: "#43de83",
                     color: "black",
                   },
                 }}

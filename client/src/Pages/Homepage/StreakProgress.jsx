@@ -110,7 +110,7 @@ const StreakProgress = ({ currentUser }) => {
           justifyContent: "space-between",
           mt: 2,
           padding: " 15px 40px",
-          backgroundColor: "#F9DC5C",
+          backgroundColor: "#0bf",
           backdropFilter: "blur(10px)",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px #102f54",
