@@ -4,7 +4,7 @@ const updateTaskScore = async (req, res) => {
   const { userId } = req.params;
   const { newTaskScore } = req.body;
 
-  console.log(userId, newTaskScore);
+  //console.log(userId, newTaskScore);
 
   try {
     const user = await User.findById(userId);
@@ -14,7 +14,7 @@ const updateTaskScore = async (req, res) => {
     }
 
     // Update the TaskScore
-    user.TaskScore += newTaskScore;
+    user.TaskScore = newTaskScore;
 
     // Save the updated user
     await user.save();

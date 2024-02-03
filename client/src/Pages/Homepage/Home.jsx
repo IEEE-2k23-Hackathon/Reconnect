@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import toast from 'react-hot-toast';
 import TaskCard from "./TaskCard";
 import Sidebar from "../../components/Sidebar";
 import StreakProgress from "./StreakProgress";
@@ -61,6 +62,8 @@ const Home = () => {
 
   const dailyTasks = currentUser.DailyTasks.tasks;
   console.log(dailyTasks);
+  const [checkedTasks, setCheckedTasks] = useState([]);
+
 
   //console.log(currentUser);
 
@@ -80,9 +83,92 @@ const Home = () => {
   //       console.log(data);
   // }
 
-  const handleCheckboxChange = (event, index) => {
-    // Handle checkbox change logic here
+  useEffect(() => {
+    const storedCheckedTasks = JSON.parse(localStorage.getItem('checkedTasks')) || [];
+    setCheckedTasks(storedCheckedTasks);
+  }, []);
+
+
+  const handleCompleteDay = () => {
+    // Check if all tasks are marked as done
+    const allDone = checkedTasks.every((isDone) => isDone);
+
+    if (allDone) {
+      fetch(`/api/updateTaskScore/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({newTaskScore: currentUser.TaskScore + 1}) ,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const updatedUser = { ...currentUser, ...data.user };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          // Reset the checked state
+          setCheckedTasks(Array(dailyTasks.length).fill(false));
+          localStorage.setItem('checkedTasks', JSON.stringify(Array(dailyTasks.length).fill(false)));
+          console.log('TaskScore updated:', data);
+          toast.success('TaskScore updated successfully!');
+
+          // Make a POST request to update DailyTaskDone based on the level
+        })
+        .catch((error) => {
+          console.error('Error updating TaskScore:', error.message);
+          toast.error('Error updating TaskScore. Please try again.');
+        })
+
+
+        toast.loading("Please Wait Untill the AI process the Next Day Tasks",{
+          id:'100',});
+        // update the User Tasks for Next Day
+        fetch(`/api/updateNextDay`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+            {
+              email:currentUser.email,
+              tasks:dailyTasks,
+              addictType:currentUser.addictType,
+              PerDay:currentUser.AddictionDetails.PerDay,
+              years:currentUser.AddictionDetails.years,
+              triedToGiveUp:currentUser.AddictionDetails.triedToGiveUp,
+              reason:currentUser.AddictionDetails.reason
+            }
+            )
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          const updatedUser = { ...currentUser, ...data.user };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          // Reset the checked state
+          toast.success('Tasks Treated For next day updated successfully!');
+          toast.dismiss('100');
+          window.location.reload();
+          // Make a POST request to update DailyTaskDone based on the level
+        })
+        .catch((error) => {
+          //console.error('Error updating TaskScore:', error.message);
+          toast.error('Error updating Next Day. Please try again.');
+        })
+
+      
+    } else {
+      toast.error('Please mark all tasks as done before completing the day.');
+    }
   };
+
+  const handleTaskDone = (index) => {
+    const newCheckedTasks = [...checkedTasks];
+    newCheckedTasks[index] = !newCheckedTasks[index]; // Toggle the state
+    setCheckedTasks(newCheckedTasks);
+    localStorage.setItem('checkedTasks', JSON.stringify(newCheckedTasks));
+  }
+
+
+
 
   const [quote, setQuote] = useState("");
   useEffect(() => {
@@ -148,11 +234,18 @@ const Home = () => {
                           </Typography>
                         }
                       />
-                      <Checkbox
+                      <Button
                         color="primary"
-                        onClick={(event) => handleCheckboxChange(event, index)}
-                        sx={{ mr: "15vw" }}
-                      />
+                        variant="contained"
+                        onClick={() => handleTaskDone(index)}
+                        sx={{
+                          mr: "15vw",
+                          backgroundColor: checkedTasks[index] ? "#4CAF50" : undefined,
+                          color: checkedTasks[index] ? "white" : undefined,
+                        }}
+                      >
+                        Done
+                      </Button>
                     </ListItem>
                   ))}
                 </List>
@@ -162,7 +255,7 @@ const Home = () => {
                 variant="contained"
                 color="secondary"
                 fullWidth
-                //onClick={}
+                onClick={handleCompleteDay}
                 sx={{
                   margin: "20px",
                   padding: "15px 0",
