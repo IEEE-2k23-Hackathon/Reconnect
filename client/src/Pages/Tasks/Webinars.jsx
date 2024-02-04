@@ -138,7 +138,7 @@ const HostWebinar = () => {
 
   return (
     <Layout title={"Webinars | Reconnect"}>
-      <Grid container spacing={1} sx={{ width: "100%", marginLeft: "-5vw" }}>
+      <Grid container spacing={1} sx={{ width: "100%", marginLeft: "-5vw",marginTop:'2vh' }}>
         {/* Sidebar */}
         <Grid item xs={12} md={3}>
           <Sidebar />

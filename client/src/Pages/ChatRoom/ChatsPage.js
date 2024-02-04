@@ -12,7 +12,7 @@ const ChatsPage = () => {
       style={{
         width: "100%",
         margin: "0 auto",
-        backgroundColor: "#4d7aab",
+        backgroundColor: "",
         height: "110vh",
         paddingBottom: "80px",
         overflow: "hidden",
